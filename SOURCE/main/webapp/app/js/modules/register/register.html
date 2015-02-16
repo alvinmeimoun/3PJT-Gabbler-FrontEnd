@@ -1,0 +1,30 @@
+<div data-ng-controller="registerCtrl">
+    <div class="row">
+        <h2 class="col-sm-6 col-md-12 text-center login-title" >{{ 'LOGIN_OR_SIGNIN' | translate }} </h2>
+        <div class="col-sm-6 col-md-12">
+            <h1 class="text-center login-title">{{ 'MODULE_TITLE_SIGNIN' | translate }}</h1>
+            <div class="account-wall">
+                <div data-ng-show="error" class="alert alert-danger">{{ error }}</div>
+                <form class="form-login"  data-ng-submit="register()" role="form">
+
+                    <input type="text" data-ng-model="lastname"  name="lastname" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_LASTNAME' | translate }}" required  />
+                    <span data-ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Lastname is required</span>
+
+                    <input type="text" data-ng-model="firstname"  name="firstname" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME' | translate }}" required />
+                    <span data-ng-show="form.firstname.$dirty && form.firstname.$error.required" class="help-block">Firstname is required</span>
+
+                    <input type="text" data-ng-model="username"  name="username" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_LOGIN' | translate }}" required  />
+                    <span data-ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+
+                    <input type="password" data-ng-model="pwd"  name="pwd" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_PASSWORD' | translate }}" required />
+                    <span data-ng-show="form.pwd.$dirty && form.pwd.$error.required" class="help-block">Password is required</span>
+
+                    <button type="submit" data-ng-disabled="form.$invalid || dataLoading" class="btn btn-lg btn-success btn-block">{{'MODULE_TITLE_SIGNIN' | translate }}</button>
+                    <img data-ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
