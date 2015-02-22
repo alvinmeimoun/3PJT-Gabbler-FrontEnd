@@ -1,7 +1,9 @@
 /**
  * Created by Antonin on 27/01/2015.
  */
-angular.module('gabbler.login.service', [])
+angular.module('gabbler.login.service', [
+
+])
 
     .factory('AuthenticationService',
     ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
@@ -72,7 +74,7 @@ angular.module('gabbler.login.service', [])
             };
             service.GetCredentials = function()
             {
-                return $cookieStore.globals;
+                return $cookieStore.get("globals");
             };
 
             service.ClearCredentials = function () {

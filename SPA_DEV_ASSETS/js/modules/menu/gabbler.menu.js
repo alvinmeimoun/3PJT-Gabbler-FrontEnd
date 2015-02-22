@@ -14,28 +14,43 @@ angular.module('gabbler.menu', [
     };
 })
 
-.controller('menuCtrl', function($scope,$cookieStore, $location, AuthenticationService){
+.controller('menuCtrl', function($scope,$cookieStore, $location, AuthenticationService) {
 
-        if($cookieStore.get("globals"))
-        {
-            $scope.nickname = $cookieStore.get("globals").currentUser.username;
+        /*$scope.message = "Waiting 2000ms for update";*/
 
-        }
-        else
-        {
-            $scope.nickname = "";
-        }
+            setInterval(function () {
+                $scope.$apply(function () {
+                    var credentials = AuthenticationService.GetCredentials();
+                    if (typeof(credentials.currentUser) === 'undefined')
+                    {
 
-        $scope.$watch(function($scope) {
-            //update the DOM with newValu
-            console.log( "Function watched" );
-            return $scope.nickname; },
-            function(newValue) {
-             //   $scope.nickname = $cookieStore.get("globals").currentUser.username;
+                        $scope.nickname = "";
+                    }
+                    else /*if (credentials.currentUser)*/{
+                        $scope.nickname = credentials.currentUser.username;
+                    }
 
-               console.log( "Function new value" + newValue );
-            }
-        );
+                });
+            }, 2000);
+
+
+
+       /* setTimeout(function(){
+
+            $scope.$apply(function()
+            {
+                if ($cookieStore.get("globals")) {
+                    $scope.nickname = $cookieStore.get("globals").currentUser.username;
+
+                }
+                else {
+                    $scope.nickname = "";
+                }
+
+            }, 2000);
+
+        });*/
+
 
 
         $scope.logout = function()

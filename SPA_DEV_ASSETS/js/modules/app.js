@@ -33,7 +33,7 @@ gabblerApp.config(['$routeProvider',
         }])
     .run(function($http) {
         $http.defaults.headers.post = {'Content-Type': 'application/json' , 'Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'x-requested-with'};
-        $http.defaults.headers.get = {'Content-Type': 'application/json' , 'Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'x-requested-with'};
+        //$http.defaults.headers.get = {'Content-Type': 'application/json' , 'Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'x-requested-with'};
     });
 /*.run(function(authService, $location, $rootScope, $state){
 

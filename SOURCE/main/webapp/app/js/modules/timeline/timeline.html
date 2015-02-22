@@ -1,12 +1,33 @@
 
-<div class="col-md-3" data-ng-controller="profileOverviewCtrl">
-
-    <p> col 1</p>
+<div class="col-md-3"  id="timeline-col-1" data-ng-controller="profileOverviewCtrl">
+    <div id="pictureProfile"></div>
+    <h3> {{ firstname }} - {{ lastname }}</h3>
+    <h4> @{{ nickname }} </h4>
+    <a href="#"> Go to my profile </a>
+    <pre> {{ token }} </pre>
+    <pre> {{ result | json }} </pre>
 </div>
-<div class="col-md-7" data-ng-controller="timelineCtrl">
+<div class="col-md-6" id="timeline-col-2" data-ng-controller="timelineCtrl">
 
-    <p> col 2</p>
+
+    <div class="form-inline form-group">
+    <input name="gab" type="text" data-ng-model="gab" class="form-control" placeholder="Type a gab">
+        <button class="btn btn-success form-control" data-ng-click="addGab()" >Submit</button>
+    </div>
+    <pre> {{ gabs | json }} </pre>
+
+   <div class="gabslist" data-ng-repeat="gab in gabs">
+        <!--<div class="img-circle"><img src="/main/img/twitter-happy-2640049b-215351.jpg"></div>-->
+        <div class="form-group gab-content">
+            <h5 id="displayname">{{ gab.userId }}</h5>
+            <p id="nickname"> le {{ date }}</p>
+            <p id="gab">{{ gab.content }}</p>
+
+        </div>
+
+    </div>
+
 </div>
-<div class="col-md-2" data-ng-controller="suggestionsCtrl">
+<div class="col-md-2" id="timeline-col-3" data-ng-controller="suggestionsCtrl">
     <p> col 3</p>
 </div>
