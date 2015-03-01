@@ -23,8 +23,6 @@ angular.module('gabbler.timeline.service', [
                 console.log("http request");
                 var loginResponse ;
                 if( id === "0") {
-
-
                     $http.get("http://localhost:8082/gabbler/api/user/get?userId=" + "2")
                         .success(function (response, status) {
                             callback(response, status);
@@ -54,7 +52,7 @@ angular.module('gabbler.timeline.service', [
 
                     "content": gab,
                     "userId": 2,
-                    "postDate": "2015-02-22"
+                    "postDate": date
                 };
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Raw', 'sessionAuthToken': token};
                 $http.post("http://localhost:8082/gabbler/api/gabs/publish",requestData)

@@ -36,6 +36,7 @@
     "SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME" : "Firstname",
     "SIGNIN_FIELD_PLACEHOLDER_LASTNAME" : "Lastname",
     "SIGNIN_FIELD_PLACEHOLDER_PASSWORD" : "Password",
+    "SIGNIN_FIELD_PLACEHOLDER_NEW_PASSWORD": "New Password",
     "SIGNIN_FIELD_PLACEHOLDER_PASSWORD_CONFIRMATION" : "Password confirmation",
     "SIGNIN_ERROR_REGISTRATION" : "An error occured during registration. Please contact the Aroundev.com support team if the problem persists.",
     "SIGNIN_SUCCESS_REGISTRATION" : "Successfully registration to Aroundev. You are now able to connect.",
@@ -45,5 +46,10 @@
 
     "COMMON_ERROR" : "Unfortunately, an error occured. Please contact the Aroundev.com support team if the problem persists.",
 
-    "VIEW_NOT_CONNECTED" : "You are not connected. Please log in before trying access to this page."
+    "VIEW_NOT_CONNECTED" : "You are not connected. Please log in before trying access to this page.",
+
+    "GO_TO_PROFILE" : "Go to My Gab Profile",
+    "PUBLISH_GAB" : "Publish",
+    "FIND_FRIEND" : "Find Friend",
+    "PROFILE_UPDATE" : "Update my Profile"
 }

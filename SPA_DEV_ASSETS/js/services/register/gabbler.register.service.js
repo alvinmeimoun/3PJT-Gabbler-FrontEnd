@@ -9,13 +9,40 @@ angular.module('gabbler.register.service', [])
         function ( $http, $cookieStore, $rootScope, $timeout) {
             var service = {};
 
-            service.Register = function (lastname,firstname,username, pwd, callback) {
+            service.Register = function (gender,lastname,firstname,birthdate,email,username, pwd, callback) {
                 console.log("entree service register");
                 /* Dummy authentication for testing, uses $timeout to simulate api call
-                 ----------------------------------------------*/
-               $timeout(function(){
+                ----------------------------------------------*/
+                var bDate = new Date(birthdate);
+                var date = new Date();
+                var requestData =
+                {
 
-                   if (lastname !== '' && firstname !== '' && username !== '' && pwd !== '') {
+                    "password": pwd,
+                    "displayName": username,
+                    "nickname": username,
+                    "birthdate": bDate,
+                    "firstname": firstname,
+                    "lastname": lastname,
+                    "email": email ,
+                    "gender": gender,
+                    "creationDate": date
+
+                };
+
+
+                   $http.post("http://localhost:8082/gabbler/api/user/subscribe", requestData )
+                       .success(function (response,status)
+                       {
+                           callback(response,status);
+                       })
+                       .error(function (response,status)
+                       {
+                           callback(response,status);
+
+                       });
+
+                  /* if (lastname !== '' && firstname !== '' && username !== '' && pwd !== '') {
                        console.log("condition service");
                        var response = {success: 'true'};
                        if (response.success === 'true') {
@@ -23,8 +50,7 @@ angular.module('gabbler.register.service', [])
                            console.log("Erreur success api");
                        }
                        callback(response);
-                   }
-                }, 1000);
+                   }*/
 
 
                 /* Use this for real authentication

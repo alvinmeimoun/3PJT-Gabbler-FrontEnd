@@ -35,6 +35,7 @@
     "SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME" : "Prénom",
     "SIGNIN_FIELD_PLACEHOLDER_LASTNAME" : "Nom",
     "SIGNIN_FIELD_PLACEHOLDER_PASSWORD" : "Mot de passe",
+    "SIGNIN_FIELD_PLACEHOLDER_NEW_PASSWORD": "Nouveau mot de passe",
     "SIGNIN_FIELD_PLACEHOLDER_PASSWORD_CONFIRMATION" : "Confirmation du mot de passe",
     "SIGNIN_ERROR_REGISTRATION" : "Une erreur est survenue pendant l'inscription. Si le problème persiste veuillez contacter le support de Aroundev.com",
     "SIGNIN_SUCCESS_REGISTRATION" : "Succès d'inscription. Vous pouvez désormais vous connecter.",
@@ -57,5 +58,10 @@
 
     "COMMON_ERROR" : "Malheureusement, une erreur est survenue... Si le problème persiste veuillez contacter le support de Aroundev.com",
 
-    "VIEW_NOT_CONNECTED" : "Vous n'êtes pas connecté. Veuillez vous connecter pour accéder à cette page."
+    "VIEW_NOT_CONNECTED" : "Vous n'êtes pas connecté. Veuillez vous connecter pour accéder à cette page.",
+
+    "GO_TO_PROFILE" : "Voir mon profil Gabbler",
+    "PUBLISH_GAB" : "Publier",
+    "FIND_FRIEND" : "Trouver des amis",
+    "PROFILE_UPDATE" : "Mettre à jour mon profile"
 }

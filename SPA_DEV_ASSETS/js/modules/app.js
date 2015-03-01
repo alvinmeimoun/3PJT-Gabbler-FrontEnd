@@ -9,9 +9,12 @@ var gabblerApp = angular.module('gabblerApp', [
     'gabbler.login.service',
     'gabbler.menu',
     'gabbler.login',
+    'gabbler.register.service',
     'gabbler.register',
     'gabbler.home',
-    'gabbler.timeline'
+    'gabbler.timeline',
+    'gabbler.profile.service',
+    'gabbler.profile'
 
 
 ]);
@@ -27,6 +30,12 @@ gabblerApp.config(['$routeProvider',
                 when('/timeline', {
                     templateUrl: '/main/webapp/app/js/modules/timeline/timeline.html'
                     // controller: 'Ctrl'
+
+                });
+            $routeProvider.
+                when('/profile', {
+                    templateUrl: '/main/webapp/app/js/modules/profile/profile.html',
+                    controller: 'profileCtrl'
 
                 });
 

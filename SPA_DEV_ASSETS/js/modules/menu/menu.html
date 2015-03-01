@@ -1,5 +1,5 @@
 <div ng-controller="menuCtrl">
-<nav  class="navbar navbar-default">
+<nav  class="navbar navbar-default nav">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown">
-                    <a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ 'MENU_LANGUAGE' | translate }} <span class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ 'MENU_LANGUAGE' | translate }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <!--<li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -26,8 +26,8 @@
                         <li><a href="#">Separated link</a></li>
                         <li class="divider"></li>
                         <li><a href="#">One more separated link</a></li>-->
-                        <li><a href="#/" ng-click="changeLanguage('fr')" class="pointer"><i class="fa fa-check" data-ng-show="fr"></i> {{ 'MENU_FR' | translate }}</a></li>
-                        <li><a href="#/" ng-click="changeLanguage('en')" class="pointer"><i class="fa fa-check" data-ng-show="en"></i> {{ 'MENU_EN' | translate }}</a> </li>
+                        <li><a href="" ng-click="changeLanguage('fr')" class="pointer"><i class="fa fa-check" data-ng-show="fr"></i> {{ 'MENU_FR' | translate }}</a></li>
+                        <li><a href="" ng-click="changeLanguage('en')" class="pointer"><i class="fa fa-check" data-ng-show="en"></i> {{ 'MENU_EN' | translate }}</a> </li>
 
                     </ul>
                 </li>

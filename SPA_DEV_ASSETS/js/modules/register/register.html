@@ -6,12 +6,22 @@
             <div class="account-wall">
                 <div ng-show="error" class="alert alert-danger">{{ error }}</div>
                 <form class="form-login"  ng-submit="register()" role="form">
+                   <div class="form-inline" style="text-align: center">
+                    <label for="male">M. </label><input id="male" type="radio" ng-model="gender" value="Male">
+                    <label for="female">Mme. </label><input id="female" type="radio" ng-model="gender" value="Female">
+                   </div>
 
                     <input type="text" ng-model="lastname"  name="lastname" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_LASTNAME' | translate }}" required  />
                     <span ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Lastname is required</span>
 
                     <input type="text" ng-model="firstname"  name="firstname" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME' | translate }}" required />
                     <span ng-show="form.firstname.$dirty && form.firstname.$error.required" class="help-block">Firstname is required</span>
+
+                    <input type="date" ng-model="birthdate"  name="birthdate" class="form-control"  required  />
+                    <span ng-show="form.birthdate.$dirty && form.birthdate.$error.required" class="help-block">Birthdate is required</span>
+
+                    <input type="text" data-ng-model="email"  name="email" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_EMAIL' | translate }}" required  />
+                    <span data-ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
 
                     <input type="text" ng-model="username"  name="username" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_LOGIN' | translate }}" required  />
                     <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>

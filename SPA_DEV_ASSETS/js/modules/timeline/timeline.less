@@ -25,13 +25,125 @@
 
 #timeline-col-2
 {
-  background-color: white;
   min-height: 500px;
   margin-right: 10px;
-  padding-top:10px;
-  border-radius:0.5em;
+
   input {
-    width: 85%;
+    width: 84%;
+  }
+
+  .gabslist
+  {
+    background-color: white;
+
+    padding-top:10px;
+    //border-radius:0.5em;
+    margin-top:10px;
+
+    .gab-item
+    {
+      margin-left: 10px;
+      margin-right:10px;
+      border-bottom: solid 1px #E0E2E4;
+
+      .user-picture
+      {
+        height: 50px;
+        width: 50px;
+        border: solid #E0E2E4 1px;
+      }
+      table
+      {
+        tr
+        {
+          td:first-child
+          {
+            padding-left: 20px;
+          }
+          td:nth-child(2)
+          {
+            width: 200%;
+          }
+        }
+      }
+    }
+  }
+  .gab-input
+  {
+
+    background-color: white;
+
+    padding:20px;
+    //border-radius:0.5em;
+   // margin-top:10px;
+  }
+  .gab-content
+  {
+
+    padding: 10px;
+
+    #gab
+    {
+      padding-left: 40px;
+    }
+    h4
+    {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .gab-header
+    {
+
+
+      text-transform: none;
+      text-decoration: none;
+      list-style-type: none;
+      li
+      {
+        display: inline;
+      }
+      li:first-child
+      {
+        font-size: 16px;
+        font-weight: bold;
+        color:steelblue;
+      }
+      li:nth-child(2)
+      {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+
+
+    }
+    .gab-actions
+    {
+
+
+      text-transform: none;
+      text-decoration: none;
+      list-style-type: none;
+      float: right;
+
+      li
+      {
+        display: inline;
+      }
+      li:first-child
+      {
+
+        /*font-size: 16px;
+        font-weight: bold;*/
+        color:steelblue;
+      }
+      li:nth-child(2)
+      {
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #008000;
+      }
+    }
   }
 }
 #timeline-col-3

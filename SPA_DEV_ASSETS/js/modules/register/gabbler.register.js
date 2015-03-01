@@ -2,8 +2,7 @@
  * Created by Antonin on 26/01/2015.
  */
 angular.module('gabbler.register', [
-    'gabbler.register.service',
-    'gabbler.login.service'
+
 
 ])
 
@@ -15,13 +14,14 @@ angular.module('gabbler.register', [
         $scope.register = function () {
             console.log("entree fct register");
             $scope.dataLoading = true;
-            RegisterService.Register($scope.lastname, $scope.firstname, $scope.username, $scope.pwd, function (response) {
+
+            $scope.error = $scope.gender + $scope.lastname + $scope.firstname + new Date($scope.birthdate) + $scope.email + $scope.username + $scope.pwd;
+            RegisterService.Register($scope.gender,$scope.lastname, $scope.firstname,$scope.birthdate,$scope.email, $scope.username, $scope.pwd, function (response) {
                 if (response.success) {
                     console.log("succes register");
-                    AuthenticationService.Login($scope.username,$scope.pwd);
-                    AuthenticationService.SetCredentials($scope.username, $scope.pwd);
-
-                    $location.path('/wall');
+                   // AuthenticationService.Login($scope.username,$scope.pwd);
+                    //AuthenticationService.SetCredentials($scope.username, $scope.pwd);
+                   // $location.path('/timeline');
                 } else {
                     console.log("Erreur");
                     $scope.error = response.message;
