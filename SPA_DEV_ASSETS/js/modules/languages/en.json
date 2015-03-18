@@ -25,6 +25,7 @@
     "LOGIN_LOG_IN_ACTION" : "Log In",
     "LOGIN_LOG_IN_REMEMBER_ME" : "Remember me",
     "LOGIN_OR_SIGNIN" : "OR",
+    "LOGIN_LOG_IN_FORM_PLACEHOLDER_DISPLAYNAME" : "Display Name",
     "MODULE_TITLE_SIGNIN" : "Sign In",
 
     "SIGNIN_FIELD_PLACEHOLDER_SUPINFO_ID" : "Supinfo ID",
@@ -49,7 +50,16 @@
     "VIEW_NOT_CONNECTED" : "You are not connected. Please log in before trying access to this page.",
 
     "GO_TO_PROFILE" : "Go to My Gab Profile",
+    "PROFILE_TITLE" : "My Profile Gabbler",
+    "PROFILE_TITLE_DATAS": "My Datas",
+    "PROFILE_TITLE_PWD": "Password",
+    "PROFILE_TITLE_CHANGE_PWD": "Change password ",
+    "PROFILE_B_DATE": "BirthDate",
     "PUBLISH_GAB" : "Publish",
     "FIND_FRIEND" : "Find Friend",
-    "PROFILE_UPDATE" : "Update my Profile"
+    "PROFILE_UPDATE" : "Update my Profile",
+    "PROFILE_UPDATE_PWD" : "Update Password",
+
+    "MENU_EDIT_PROFILE" : "Edit Profile",
+    "MENU_LOGOUT" : "Logout"
 }

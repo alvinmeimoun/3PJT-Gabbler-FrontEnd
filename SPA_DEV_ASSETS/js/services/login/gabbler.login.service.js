@@ -2,12 +2,12 @@
  * Created by Antonin on 27/01/2015.
  */
 angular.module('gabbler.login.service', [
-
+'toastr'
 ])
 
     .factory('AuthenticationService',
-    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
-        function (Base64, $http, $cookieStore, $rootScope, $timeout) {
+    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout', 'toastr',
+        function (Base64, $http, $cookieStore, $rootScope, $timeout, toastr) {
             var service = {};
 
             service.Login = function (username, pwd, callback) {
@@ -34,43 +34,55 @@ angular.module('gabbler.login.service', [
                     $http.post("http://localhost:8082/gabbler/api/login", requestData )
                     .success(function (response,status)
                     {
+                        service.SetCredentials(username, response.token , response.userID);
+                        toastr.info('Welcome To Gabbler !', 'Just Gab with your friends!');
+                        toastr.success('You are now connected !');
+                        //toastr.success($cookieStore.get('globals').currentUser.userID);
                         callback(response,status);
                     })
                     .error(function (response,status)
                     {
+                        toastr.error('Error while connecting !');
                         callback(response,status);
 
                     });
             };
             service.Logout = function (callback) {
-                var requestData = {"token" : $cookieStore.get("globals").currentUser.token };
-                var headers = {
+                var requestData = {"token" : $cookieStore.get("globals").currentUser.token  };
+               /* var headers = {
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                };
-                $http.get("http://localhost:8082/gabbler/api/logout", headers, requestData )
+                };*/
+                var token = $cookieStore.get("globals").currentUser.token;
+                $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+
+                $http.get("http://localhost:8082/gabbler/api/logout",requestData )
                     .success(function (response,status)
                     {
+                        toastr.info('You have been disconnected !', 'Good Bye !');
                         callback(response,status);
                     })
                     .error(function (response,status)
                     {
+                        toastr.info('You have been disconnected !', 'Good Bye !');
                         callback(response,status);
 
                     });
 
             };
-           service.SetCredentials = function (username, token) {
+           service.SetCredentials = function (username, token, userID) {
                // var authdata = Base64.encode(username + ':' + pwd);
                 $rootScope.globals = {
                     currentUser: {
                         username: username,
-                        token: token
+                        token: token,
+                        userID : userID
                     }
                 };
                $http.defaults.headers.common['Authorization'] = 'Basic ' + token; // jshint ignore:line
                $cookieStore.put('globals', $rootScope.globals);
+
             };
             service.GetCredentials = function()
             {

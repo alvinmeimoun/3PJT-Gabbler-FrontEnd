@@ -7,17 +7,17 @@ angular.module('gabbler.profile.service', [
     ['$http', '$cookieStore', '$rootScope', '$timeout',
         function ( $http, $cookieStore, $rootScope, $timeout) {
             var service = {};
+            var token;
+            var userID;
 
-            service.GetUserDatas = function(id,callback)
+            service.GetUserDatas = function(callback)
             {
-                    var token = $cookieStore.get("globals").currentUser.token;
+                    token = $cookieStore.get("globals").currentUser.token;
+                    userID = $cookieStore.get("globals").currentUser.userID;
                     //AuthenticationService.GetCredentials().currentUser.token;
                     $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                   // var headers = { 'sessionAuthToken': '4733c400ae6cf9db51db171ae9587097e15609129273abda7b51a89e1a83b8f3' };
-                    //console.log("http request");
-
-                    if( id === "0") {
-                        $http.get("http://localhost:8082/gabbler/api/user/get?userId=" + "2")
+                    if( userID !== "0") {
+                        $http.get("http://localhost:8082/gabbler/api/user/get?userId=" + userID)
                             .success(function (response, status) {
                                 callback(response, status);
                             })
@@ -28,23 +28,20 @@ angular.module('gabbler.profile.service', [
                     }
             };
 
-            service.UpdateUserDatas = function(id,firstname,lastname,nickname,email,birthdate,callback)
+            service.UpdateUserDatas = function(firstname,lastname,nickname,displayname,email,birthdate,callback)
             {
-              var token = $cookieStore.get("globals").currentUser.token;
-                var gettingId;
+                token = $cookieStore.get("globals").currentUser.token;
+                userID = $cookieStore.get("globals").currentUser.userID;
                 var lastModification = new Date();
                 var date = new Date(birthdate);
-                if (id === "0")
-                {
-                    gettingId = 2;
-                }
+
                 var requestData =
                 {
-                    "id": "2",
-                    "displayName": "Utilisateur de test",
+                    "id": userID,
                     "email": email,
                     "nickname": nickname,
                     "birthdate": date,
+                    "displayName": displayname,
                     "firstname": firstname,
                     "lastname": lastname,
                     "creationDate": lastModification
@@ -65,6 +62,27 @@ angular.module('gabbler.profile.service', [
 
             };
 
+            service.UpdatePassword = function(oldPassword,newPassword, callback)
+            {
+                token = $cookieStore.get("globals").currentUser.token;
+                var requestData =
+                {
+                    "oldPassword" : oldPassword,
+                    "newPassword" : newPassword
+                };
+                $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Raw', 'sessionAuthToken': token};
+
+                $http.post("http://localhost:8082/gabbler/api/user/password_change",requestData)
+                    .success(function (response,status)
+                    {
+                        callback(response,status);
+                    })
+                    .error(function (response,status)
+                    {
+                        callback(response,status);
+
+                    });
+            };
             return service;
         }
 

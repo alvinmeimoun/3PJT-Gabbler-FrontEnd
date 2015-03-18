@@ -3,11 +3,11 @@
  */
 angular.module('gabbler.login', [
 
-
+'toastr'
 ])
 
-.controller('loginCtrl',['$scope', '$rootScope', '$cookieStore', '$location', 'AuthenticationService','$route',
-        function ($scope, $rootScope, $cookieStore, $location, AuthenticationService, $route) {
+.controller('loginCtrl',['$scope', '$rootScope', '$cookieStore', '$location', 'AuthenticationService','$route','toastr',
+        function ($scope, $rootScope, $cookieStore, $location, AuthenticationService, $route,toastr) {
         /*  $http.get('phones/phones.json').success(function(data) {
          $scope.phones = data;
          });*/
@@ -19,17 +19,21 @@ angular.module('gabbler.login', [
                 $scope.dataLoading = true;
                 AuthenticationService.Login($scope.username, $scope.pwd, function (response) {
                     if (response.token) {
-                       AuthenticationService.SetCredentials($scope.username, response.token);
+
                         //$scope.error = response.token;
                         $scope.dataLoading = false;
                         //$scope.error = $cookieStore.get("globals");
                        // $route.reload();
                         //$scope.$apply();
-                       $location.path('/timeline');
+                        //AuthenticationService.SetCredentials($scope.username, response.token , response.userID);
+                        toastr.info($cookieStore.get("globals").currentUser.userID);
+                       $location.path('/timeline/user');
+                        //toastr.success('You have been connected ! ');
                     } else {
-                        console.log("Erreur");
+
                         $scope.error = "Invalid credentials";
                         $scope.dataLoading = false;
+                        toastr.error('Error while connecting ! ');
                     }
                 });
             };

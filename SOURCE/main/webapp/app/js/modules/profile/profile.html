@@ -1,29 +1,40 @@
 <div data-ng-controller="profileCtrl">
     <div class="row">
-        <div class="col-sm-6 col-md-12 ">
-            <h1 class="text-center login-title">{{ 'LOGIN_TITLE' | translate }}</h1>
+        <div class="col-sm-6 col-md-12 profile">
+
+            <h1 class="text-center login-title">{{ 'PROFILE_TITLE' | translate }}</h1>
             <div class="account-wall">
                 <div data-ng-show="error" class="alert alert-danger">{{ error }}</div>
-                <form name="form" class="form-login" data-ng-submit="updateProfile()" role="form">
+               <!-- <form name="form" class="form-login" data-ng-submit="updateProfile()" role="form">-->
 
                     <pre>{{ result | json }}</pre>
-                    <input type="text"   name="firstname" class="form-control" data-ng-model="firstname" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME' | translate }}" required  />
-                    <span data-ng-show="form.firstname.$dirty && form.firstname.$error.required" class="help-block">Firstname is required</span>
-
-                    <input type="text"   name="lastname" class="form-control" data-ng-model="lastname" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_LASTNAME' | translate }}" required  />
-                    <span data-ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Lastname is required</span>
-
-                    <input type="date" data-ng-model="birthdate"  name="birthdate" class="form-control"  required  />
-                    <span data-ng-show="form.birthdate.$dirty && form.birthdate.$error.required" class="help-block">Birthdate is required</span>
-
-                    <input type="text" data-ng-model="email"  name="email" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_EMAIL' | translate }}" required  />
-                    <span data-ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
-
-                    <input type="text" name="username" class="form-control" data-ng-model="username" placeholder="{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_LOGIN' | translate }}" disabled  />
+                    <h3>{{ 'PROFILE_TITLE_DATAS' | translate }}</h3>
+                    <label for="username">{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_LOGIN' | translate }}</label>
+                    <input type="text" id="username" name="username" class="form-control" data-ng-model="username" placeholder="{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_LOGIN' | translate }}" disabled  />
                     <span data-ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
 
-                    <h3>Password</h3>
-                    <label>Change your password : <input type="checkbox" data-ng-model="mustShow" /></label><br />
+                    <label for="displayname">{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_DISPLAYNAME' | translate }}</label>
+                    <input type="text" id="displayname" name="displayname" class="form-control" data-ng-model="displayname" placeholder="{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_DISPLAYNAME' | translate }}"   />
+                    <span data-ng-show="form.displayname.$dirty && form.displayname.$error.required" class="help-block">Display Name is required</span>
+
+                    <label for="firstname">{{ 'SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME' | translate }}</label>
+                    <input type="text"  id="firstname"  name="firstname" class="form-control" data-ng-model="firstname" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_FIRSTNAME' | translate }}" required  />
+                    <span data-ng-show="form.firstname.$dirty && form.firstname.$error.required" class="help-block">Firstname is required</span>
+
+                    <label for="lastname">{{ 'SIGNIN_FIELD_PLACEHOLDER_LASTNAME' | translate }}</label>
+                    <input type="text"  id="lastname" name="lastname" class="form-control" data-ng-model="lastname" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_LASTNAME' | translate }}" required  />
+                    <span data-ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Lastname is required</span>
+
+                    <label for="birthdate">{{ 'PROFILE_B_DATE' | translate }}</label>
+                    <input type="date" id="birthdate" data-ng-model="birthdate"  name="birthdate" class="form-control"  required  />
+                    <span data-ng-show="form.birthdate.$dirty && form.birthdate.$error.required" class="help-block">Birthdate is required</span>
+
+                    <label for="email">{{ 'SIGNIN_FIELD_PLACEHOLDER_EMAIL' | translate }}</label>
+                    <input type="text" id="email" data-ng-model="email"  name="email" class="form-control" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_EMAIL' | translate }}" required  />
+                    <span data-ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+
+                    <h3>{{ 'PROFILE_TITLE_PWD' | translate }}</h3>
+                    <label>{{ 'PROFILE_TITLE_CHANGE_PWD' | translate }}<input type="checkbox" data-ng-model="mustShow" /></label><br />
                     <div data-ng-show="mustShow" style="">
 
 
@@ -33,22 +44,14 @@
                         <input type="text" name="newPassword" class="form-control" data-ng-model="newPassword" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_NEW_PASSWORD' | translate }}"  />
                         <span data-ng-show="form.newPassword.$dirty && form.newPassword.$error.required" class="help-block">new Password is required</span>
 
-                        <button type="submit" data-ng-disabled="form.$invalid || dataLoading" onclick="updatePassword()" class="btn btn-lg btn-primary btn-block">{{ 'PROFILE_UPDATE' | translate }}</button>
-
+                        <button type="submit" disabled data-ng-disabled="form.$invalid || dataLoading" data-ng-click="updatePassword()" class="btn btn-lg btn-danger btn-block">{{ 'PROFILE_UPDATE_PWD' | translate }}</button>
+                        <br/>
                     </div>
 
-
-                   <!-- <input type="text"   name="username" class="form-control" data-ng-model="username" placeholder="{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_LOGIN' | translate }}" required  />
-                    <span data-ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>-->
-
-                   <!-- <input type="password" data-ng-model="pwd"  name="pwd" class="form-control" placeholder="{{ 'LOGIN_LOG_IN_FORM_PLACEHOLDER_PASSWORD' | translate }}" required />
-                    <span data-ng-show="form.pwd.$dirty && form.pwd.$error.required" class="help-block">Password is required</span>-->
+                    <button type="submit" data-ng-disabled="form.$invalid || dataLoading" data-ng-click="updateProfile()" class="btn btn-lg btn-primary btn-block">{{ 'PROFILE_UPDATE' | translate }}</button>
 
 
-                    <button type="submit" data-ng-disabled="form.$invalid || dataLoading" class="btn btn-lg btn-primary btn-block">{{ 'PROFILE_UPDATE' | translate }}</button>
-
-
-                </form>
+                <!--</form>-->
             </div>
         </div>
     </div>

@@ -13,8 +13,10 @@ var gabblerApp = angular.module('gabblerApp', [
     'gabbler.register',
     'gabbler.home',
     'gabbler.timeline',
+    /*'gabbler.timeline.global',*/
     'gabbler.profile.service',
-    'gabbler.profile'
+    'gabbler.profile',
+    'toastr'
 
 
 ]);
@@ -27,11 +29,17 @@ gabblerApp.config(['$routeProvider',
 
                 });
             $routeProvider.
-                when('/timeline', {
+                when('/timeline/user', {
                     templateUrl: '/main/webapp/app/js/modules/timeline/timeline.html'
                     // controller: 'Ctrl'
 
                 });
+           /* $routeProvider.
+                when('/timeline', {
+                    templateUrl: '/main/webapp/app/js/modules/timeline_global/timeline_global.html'
+                    // controller: 'Ctrl'
+
+                });*/
             $routeProvider.
                 when('/profile', {
                     templateUrl: '/main/webapp/app/js/modules/profile/profile.html',

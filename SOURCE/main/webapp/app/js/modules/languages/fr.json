@@ -24,6 +24,7 @@
     "LOGIN_LOG_IN_FORM_PLACEHOLDER_PASSWORD" : "Mot de passe",
     "LOGIN_LOG_IN_ACTION" : "Connexion",
     "LOGIN_LOG_IN_REMEMBER_ME" : "Se rappeler de moi",
+    "LOGIN_LOG_IN_FORM_PLACEHOLDER_DISPLAYNAME" : "Pseudo",
     "LOGIN_OR_SIGNIN" : "OU",
     "MODULE_TITLE_SIGNIN" : "Inscription",
     "SIGNIN_FIELD_PLACEHOLDER_SUPINFO_ID" : "Supinfo ID",
@@ -61,7 +62,15 @@
     "VIEW_NOT_CONNECTED" : "Vous n'êtes pas connecté. Veuillez vous connecter pour accéder à cette page.",
 
     "GO_TO_PROFILE" : "Voir mon profil Gabbler",
+    "PROFILE_TITLE" : "Mon Profil Gabbler",
+    "PROFILE_TITLE_DATAS": "My Coordonnées",
+    "PROFILE_TITLE_PWD": "Mot de Passe",
+    "PROFILE_TITLE_CHANGE_PWD": "Changer le mot de passe ",
+    "PROFILE_B_DATE": "Date de naissance",
     "PUBLISH_GAB" : "Publier",
     "FIND_FRIEND" : "Trouver des amis",
-    "PROFILE_UPDATE" : "Mettre à jour mon profile"
+    "PROFILE_UPDATE" : "Mettre à jour mon profil",
+    "PROFILE_UPDATE_PWD" : "Mettre à jour mon mot de passe",
+    "MENU_EDIT_PROFILE" : "Modifier mon profil",
+    "MENU_LOGOUT" : "Se deconnecter"
 }
