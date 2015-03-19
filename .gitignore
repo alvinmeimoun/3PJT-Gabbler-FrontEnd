@@ -7,3 +7,8 @@
 *.ipr
 *.iws
 .idea/
+
+# Node.JS
+node_modules
+npm-debug.log
+bower_components
