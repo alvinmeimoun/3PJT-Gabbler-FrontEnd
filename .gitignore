@@ -12,3 +12,6 @@
 node_modules
 npm-debug.log
 bower_components
+
+#Atlassian
+atlassian-ide-plugin.xml
