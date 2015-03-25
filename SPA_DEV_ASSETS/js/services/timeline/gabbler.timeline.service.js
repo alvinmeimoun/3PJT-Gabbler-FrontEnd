@@ -67,6 +67,26 @@ angular.module('gabbler.timeline.service', [
                     });
 
             };
+            service.DeleteGab = function(gabId,callback)
+            {
+                var date =  new Date();
+                token = $cookieStore.get("globals").currentUser.token;
+                //userID = $cookieStore.get("globals").currentUser.userID;
+
+                $http.defaults.headers.delete = {'sessionAuthToken': token};
+                $http.delete("http://localhost:8082/gabbler/api/gabs/delete?gabsId=" + gabId)
+                    .success(function(response,status)
+                    {
+                        callback(response,status);
+                    })
+                    .error(function(response,status)
+                    {
+                        callback(response,status);
+                    });
+
+            };
+
+
 
             service.GetMyGabs = function(callback)
             {
@@ -98,17 +118,56 @@ angular.module('gabbler.timeline.service', [
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                 })
-                    .success(function(){
-                        var uploadUrl = "http://localhost:8082/gabbler/api/user/picture/profile?userID=" + userID;
-                        $http.get(uploadUrl)
-                            .success(function(response,status)
-                            {
-                                callback(response,status);
-                            });
+                    .success(function(response, status){
+                        callback(response,status);
                     })
-                    .error(function(){
+                    .error(function(response, status){
+                        callback(response,status);
                     });
             };
+
+            var profilePicture =  {};
+
+            service.setProfilePicture = function()
+            {
+                var timestamp;
+
+                timestamp =  new Date().getTime();
+                profilePicture =  'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + userID + '&timestamp=' + timestamp;
+
+                return profilePicture;
+            };
+
+            service.uploadPictureBackground = function(file,callback){
+                token = $cookieStore.get("globals").currentUser.token;
+                //AuthenticationService.GetCredentials().currentUser.token;
+                $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+                var uploadUrl = "http://localhost:8082/gabbler/api/user/picture/profile/background";
+                var image = new FormData();
+                image.append('image', file);
+                $http.post(uploadUrl, image, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                })
+                    .success(function(response, status){
+                        callback(response,status);
+                    })
+                    .error(function(response, status){
+                        callback(response,status);
+                    });
+            };
+            service.setBackgroundPicture = function()
+            {
+                userID = $cookieStore.get("globals").currentUser.userID;
+                var timestamp =  new Date().getTime();
+                profilePicture =  'http://localhost:8082/gabbler/api/user/picture/profile/background?userID=' + userID + '&timestamp=' + timestamp;
+                return profilePicture;
+            };
+            /*
+            service.SetPhoto = function (p) {
+                profilePicture = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + p;
+
+            };*/
 
             return service;
         }]);

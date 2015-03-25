@@ -1,50 +1,96 @@
-<div id="couverture_container"></div>
+<div id="couverture_container" ng-controller="profileBackgroundCtrl">
+    <img ng-model="profileBackGroundPicture" ng-src="{{ profileBackGroundPicture }}" >
+    <div class="btn-group-vertical buttons_profile" role="group">
+        <button type="button" class="btn btn-success btn-sm" id="addProfilePictureButton" data-toggle="modal" data-target="#myModal" >
+            Change My Profile Picture
+        </button>
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" id="addBackgroundButton" data-target="#myModalBackground" >
+            Change My Background Picture
+        </button>
+    </div>
+
+
+
+    <!-- Modal -->
+    <!-- <form name="form" class="form-login" ng-submit="uploadFiles()" role="form">
+     <input type="file" file-model="myFile"  />
+     <button type="submit" >button</button>
+     </form>-->
+    <div class="modal fade" id="myModalBackground" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Add Background Profile Picture</h4>
+                </div>
+                <div class="modal-body">
+
+                    <h3>Please update your Background Profile image</h3>
+                    <form name="form" class="btn-group-vertical form-login" ng-submit="uploadFiles()" role="form">
+                        <input class="btn btn-success" type="file" file-model-background="myFile" />
+                        <button type="submit" class="btn btn-primary">upload me</button>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
 <div class="col-md-3"  id="timeline-col-1" ng-controller="profileOverviewCtrl">
-    <div id="pictureProfile"><img  ng-src="{{ profilePicture }}"></div>
+    <div id="pictureProfile"><img ng-model="profilePicture" ng-src="{{ profilePicture }}" ></div>
     <h3> {{ displayname }}</h3>
     <h3> {{ firstname }} - {{ lastname }}</h3>
     <h4> @{{ nickname }} </h4>
     <a href="#">{{ 'GO_TO_PROFILE' | translate }} </a>
     <pre> {{ token }} </pre>
+    <div> updated : {{ updated }}</div>
 
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-        Change My Profile Picture
-    </button>
 
     <!-- Modal -->
-    <form name="form" class="form-login" ng-submit="uploadFiles()" role="form">
+   <!-- <form name="form" class="form-login" ng-submit="uploadFiles()" role="form">
     <input type="file" file-model="myFile"  />
     <button type="submit" >button</button>
-    </form>
-    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    </form>-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
                     <h4 class="modal-title" id="myModalLabel">Add Profile Picture</h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Update your Profile image</h3>
-                    <input type="file" file-model="myFile" />
-                    <button ng-click="uploadFile()">upload me</button>
+
+                    <h3>Please update your Profile image</h3>
+                    <form name="form" class=" btn-group-vertical form-login" ng-submit="uploadFiles()" role="form">
+                    <input class="btn" type="file" file-model="myFile" />
+                    <button type="submit" class="btn btn-primary">upload me</button>
+                    </form>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
                     <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-             <!--   </div>
+               </div>
             </div>
         </div>
-    </div>-->
-
+    </div>
 </div>
 <div class="col-md-6" id="timeline-col-2" ng-controller="timelineCtrl">
 
 
     <div class="form-inline form-group gab-input" >
     <input name="gab" type="text" ng-model="gab" class="form-control" placeholder="Type a gab">
-        <button class="btn btn-success form-control" ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
+        <button class="btn btn-warning form-control" ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
     </div>
    <!-- <pre> {{ gabs | json }} </pre>-->
 <div class="gabslist">
@@ -54,10 +100,14 @@
        <table>
            <tr>
                <td>
-                   <div class="user-picture"></div>
+                   <div class="user-picture"><img  ng-src="{{ profilePicture }}"></div>
                </td>
                <td>
                    <div class="form-group gab-content">
+                       <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" ng-click="deleteGab($index, gab.id)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                       </div>
+
                        <ul class="gab-header">
                            <li>{{ gab.displayName }}</li>
                            <li>@{{ username }}</li>
@@ -65,13 +115,13 @@
                            <li> le {{ gab.postDate | date:'dd-MM-yyyy HH:mm' }}</li>
 
                        </ul>
-
                        <p id="gab">{{ gab.content }}</p>
                       <ul class="gab-actions">
                        <li><a href="">Like</a></li>
                        <li><a href="">Follow</a></li>
 
-                   </ul>
+                      </ul>
+
                    </div>
                </td>
            </tr>
