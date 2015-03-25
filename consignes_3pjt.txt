@@ -1,0 +1,38 @@
+une fois le projet dl : 
+
+Installer Node js
+
+Ouvrir le projet avec IntelliJ ou PHPStorm
+
+Ouvrir le terminal (console)
+
+faire cd SPA_DEV_ASSETS : puis taper
+
+npm install ( plutôt long environ 30 min)
+npm install bower 
+bower update
+bower install gulp
+
+
+faire cd SOURCE 
+npm install
+
+
+
+GULP : Permet de compresser l'ensemble des fichiers JS, CSS ... afin de gagner en ressources web
+
+faire cd SPA_DEV_ASSETS
+taper "gulp default"
+puis "gulp inject"
+
+
+
+
+Pour lancer le projet : 
+cd SOURCE
+npm start
+
+site accessible localhost:8000/index.html
+
+LE CODE EST A FAIRE DANS LE REPERTOIRE SPA_DEV_ASSETS
+A CHAQUE MAJ : cd SPA_DEV_ASSETS puis taper gulp
