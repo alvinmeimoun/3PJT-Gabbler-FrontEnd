@@ -1,49 +1,86 @@
-#timeline-col-1
+
+#timeline-global-col-1
 {
+
   background-color: white;
   min-height: 25%;
   border-right: solid 1px #ebebeb;
   //margin-right: 10px;
   //order-radius:0.5em;
-  text-align: center;
-  padding: 10px;
+  //text-align: center;
+  //padding: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  h3{
+    font-size: 19px;
+    margin-top: -60px;
+    margin-left: 100px;
+  }
+  h4{
+    font-size: 14px;
+    /* margin-top: -60px; */
+    color: gray;
+    margin-left: 100px;
+  }
+  #pictureCover
+  {
 
+
+    img{
+      width: 284px;
+      height: 100px;
+      //position: absolute;
+      z-index:2;
+    }
+  }
   #pictureProfile {
-    width: 150px;
-    height: 150px;
-
-    margin-top: -35%;
-    margin-left: 22%;
+    width: 75px;
+    height: 75px;
+    //border: solid #ebebeb 1px;
+   // margin-top: -35%;
+    //margin-left: 22%;
 
     img
     {
-      width: 150px;
-      height: 150px;
+      width: 75px;
+      height: 75px;
       z-index: 6;
+      margin-top: -50%;
       position: relative;
-      border: solid gray 2px;
-
+      margin-left: 15%;
 
     }
   }
-  h3
-  {
 
-  }
   a
   {
 
   }
+
+  #listInformations {
+
+    //padding-left: 10px;
+    width: 100%;
+    margin-left: 0;
+    
+    li {
+      width: 30%;
+      font-size: 12px;
+      color:grey;
+      text-align: center;
+      text-transform: uppercase;
+
+    }
+  }
 }
 
-#timeline-col-2
+#timeline-global-col-2
 {
   min-height: 500px;
   //margin-right: 10px;
 
   input {
     width: 84%;
-    background-color: aliceblue;
   }
 
   .gabslist
@@ -90,11 +127,11 @@
   .gab-input
   {
 
-   // background-color: white;
-    background-color: cadetblue;
+    background-color: white;
+
     padding:20px;
     //border-radius:0.5em;
-   // margin-top:10px;
+    // margin-top:10px;
     button
     {
       border-radius: 0;
@@ -174,108 +211,12 @@
     }
   }
 }
-#timeline-col-3
+#timeline-global-col-3
 {
 
   background-color: white;
   min-height: 500px;
   border-left:solid 1px #ebebeb;
-#searchUser
-{
-  margin-top: 20px;
-  background-color: honeydew;
-}
-  .user-content
-  {
-
-    padding-top: 39px;
-
-  }
-  table
-  {
-    tr
-    {
-      margin-top: 10px;
-      border-bottom: solid #ebebeb 1px;
-      td:first-child
-      {
-        padding-left: 20px;
-      }
-      td:nth-child(2)
-      {
-        width: 200%;
-      }
-    }
-  }
-  .user-picture
-  {
-    height: 50px;
-    width: 50px;
-    border: solid #E0E2E4 1px;
-
-    img {
-      height: 50px;
-      width: 50px;
-    }
-  }
-  .user-header
-  {
-
-
-    text-transform: none;
-    text-decoration: none;
-    list-style-type: none;
-    li
-    {
-      display: inline;
-    }
-    li:first-child
-    {
-      font-size: 16px;
-      font-weight: bold;
-      color:steelblue;
-    }
-    li:nth-child(2)
-    {
-      //padding-left: 10px;
-      //padding-right: 10px;
-      color:green;
-    }
-
-
-
-  }
-  .user-actions
-  {
-
-
-    text-transform: none;
-    text-decoration: none;
-    list-style-type: none;
-    float: right;
-
-    li
-    {
-      //display: inline;
-    }
-    li:first-child
-    {
-
-      /*font-size: 16px;
-      font-weight: bold;*/
-      color:steelblue;
-    }
-    li:nth-child(2)
-    {
-      padding-left: 10px;
-      padding-right: 10px;
-      color: #008000;
-    }
-  }
-
-
-
-
 }
 #couverture_container
 {
@@ -291,8 +232,8 @@
     width:1140px;
     position: absolute;
     z-index:2;
-   /* max-width:100%;
-    max-height:100%;*/
+    /* max-width:100%;
+     max-height:100%;*/
   }
 
   .buttons_profile {

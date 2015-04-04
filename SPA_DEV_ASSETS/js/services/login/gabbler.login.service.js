@@ -1,9 +1,13 @@
 /**
  * Created by Antonin on 27/01/2015.
+ *
+ * Service gérant le login utilisateur et la mise en place du cookie contenant les informations principales user
  */
+//var PROJET = require('./projet');
 angular.module('gabbler.login.service', [
 'toastr'
 ])
+
 
     .factory('AuthenticationService',
     ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout', 'toastr',
@@ -31,7 +35,7 @@ angular.module('gabbler.login.service', [
 
                     console.log("http request");
                     var loginResponse ;
-                    $http.post("http://localhost:8082/gabbler/api/login", requestData )
+                    $http.post( "http://localhost:8082/gabbler/api/login" /*+ ServerLink.GetUrlEndpoint.loginUrl */, requestData )
                     .success(function (response,status)
                     {
                         service.SetCredentials(username, response.token , response.userID);
@@ -71,7 +75,7 @@ angular.module('gabbler.login.service', [
                     });
 
             };
-           service.SetCredentials = function (username, token, userID) {
+            service.SetCredentials = function (username, token, userID) {
                // var authdata = Base64.encode(username + ':' + pwd);
                 $rootScope.globals = {
                     currentUser: {
@@ -84,8 +88,7 @@ angular.module('gabbler.login.service', [
                $cookieStore.put('globals', $rootScope.globals);
 
             };
-            service.GetCredentials = function()
-            {
+            service.GetCredentials = function() {
                 return $cookieStore.get("globals");
             };
 

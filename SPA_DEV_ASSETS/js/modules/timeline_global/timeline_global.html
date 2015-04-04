@@ -1,7 +1,7 @@
 
-<div class="col-md-3"  id="timeline-global-col-1" data-ng-controller="profileOverviewGlobalCtrl">
-    <div id="pictureCover"><img data-ng-src="{{ coverPicture }}" data-ng-model="coverPicture"> </div>
-    <div id="pictureProfile"><img data-ng-model="profilePicture" data-ng-src="{{ profilePicture }}" ></div>
+<div class="col-md-3"  id="timeline-global-col-1" ng-controller="profileOverviewGlobalCtrl">
+    <div id="pictureCover"><img ng-src="{{ coverPicture }}" ng-model="coverPicture"> </div>
+    <div id="pictureProfile"><img ng-model="profilePicture" ng-src="{{ profilePicture }}" ></div>
     <!--<h3> {{ displayname }}</h3>-->
     <h3> {{ firstname }} - {{ lastname }}</h3>
     <h4> @{{ nickname }} </h4>
@@ -26,7 +26,7 @@
                 <div class="modal-body">
 
                     <h3>Please update your Profile image</h3>
-                    <form name="form" class=" btn-group-vertical form-login" data-ng-submit="uploadFiles()" role="form">
+                    <form name="form" class=" btn-group-vertical form-login" ng-submit="uploadFiles()" role="form">
                         <input class="btn" type="file" file-model="myFile" />
                         <button type="submit" class="btn btn-primary">upload me</button>
                     </form>
@@ -40,27 +40,27 @@
         </div>
     </div>-->
 </div>
-<div class="col-md-6" id="timeline-global-col-2" data-ng-controller="timelineGlobalCtrl">
+<div class="col-md-6" id="timeline-global-col-2" ng-controller="timelineGlobalCtrl">
 
 
     <div class="form-inline form-group gab-input" >
-        <input name="gab" type="text" data-ng-model="gab" class="form-control" placeholder="Type a gab">
-        <button class="btn btn-warning form-control" data-ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
+        <input name="gab" type="text" ng-model="gab" class="form-control" placeholder="Type a gab">
+        <button class="btn btn-warning form-control" ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
     </div>
 
     <div class="gabslist">
 
-        <div class="gab-item" data-ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
+        <div class="gab-item" ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
             <!--<div class="img-circle"><img src="/main/img/twitter-happy-2640049b-215351.jpg"></div>-->
             <table>
                 <tr>
                     <td>
-                        <div class="user-picture"><img  data-ng-src="{{ gab.pictureProfile }}"></div>
+                        <div class="user-picture"><img  ng-src="{{ gab.pictureProfile }}"></div>
                     </td>
                     <td>
                         <div class="form-group gab-content">
                           <!--  <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" data-ng-click="deleteGab($index, gab.id)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" ng-click="deleteGab($index, gab.id)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             </div>-->
 
                             <ul class="gab-header">
@@ -73,7 +73,7 @@
                             </ul>
                             <p id="gab">{{ gab.content }}</p>
                             <ul class="gab-actions">
-                                <li><button data-ng-class="{'btn btn-info':gab.btnLike.state == 'Like','btn btn-danger':gab.btnLike.state == 'Unlike'}" data-ng-model="btnLike"  data-ng-click="likeOrUnlikeGab($index, gab.id)">{{gab.btnLike.state}}</button></li>
+                                <li><button ng-class="{'btn btn-info':gab.btnLike.state == 'Like','btn btn-danger':gab.btnLike.state == 'Unlike'}" ng-model="btnLike"  ng-click="likeOrUnlikeGab($index, gab.id)">{{gab.btnLike.state}}</button></li>
                             </ul>
 
                         </div>
@@ -85,9 +85,9 @@
     </div>
    <!-- <pre> {{ gabs | json }} </pre>-->
 </div>
-<div class="col-md-3" id="timeline-global-col-3" data-ng-controller="suggestionsGlobalCtrl">
+<div class="col-md-3" id="timeline-global-col-3" ng-controller="suggestionsGlobalCtrl">
    <!-- <button>{{ 'FIND_FRIEND' | translate }}</button>
-    <input type="text" data-ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+    <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
     selected = {{ selected }}-->
 
 </div>

@@ -1,3 +1,9 @@
+/**
+ * Created by Antonin on 11/02/2015.
+ * Service permettant l'affichage et la modification des informations de l'utilisateur
+ *
+ */
+
 angular.module('gabbler.profile.service', [
 
 
@@ -10,8 +16,7 @@ angular.module('gabbler.profile.service', [
             var token;
             var userID;
 
-            service.GetUserDatas = function(callback)
-            {
+            service.GetUserDatas = function(callback) {
                     token = $cookieStore.get("globals").currentUser.token;
                     userID = $cookieStore.get("globals").currentUser.userID;
                     //AuthenticationService.GetCredentials().currentUser.token;
@@ -28,8 +33,7 @@ angular.module('gabbler.profile.service', [
                     }
             };
 
-            service.UpdateUserDatas = function(firstname,lastname,nickname,displayname,email,birthdate,callback)
-            {
+            service.UpdateUserDatas = function(firstname,lastname,nickname,displayname,email,birthdate,callback) {
                 token = $cookieStore.get("globals").currentUser.token;
                 userID = $cookieStore.get("globals").currentUser.userID;
                 var lastModification = new Date();
@@ -62,8 +66,7 @@ angular.module('gabbler.profile.service', [
 
             };
 
-            service.UpdatePassword = function(oldPassword,newPassword, callback)
-            {
+            service.UpdatePassword = function(oldPassword,newPassword, callback) {
                 token = $cookieStore.get("globals").currentUser.token;
                 var requestData =
                 {

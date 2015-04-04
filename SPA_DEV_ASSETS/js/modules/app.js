@@ -5,6 +5,7 @@
 var gabblerApp = angular.module('gabblerApp', [
     'ngRoute',
     'ngAnimate',
+    /*'gabbler.server.service',*/
     'gabbler.translate',
     'gabbler.login.service',
     'gabbler.menu',
@@ -13,13 +14,14 @@ var gabblerApp = angular.module('gabblerApp', [
     'gabbler.register',
     'gabbler.home',
     'gabbler.timeline',
-    /*'gabbler.timeline.global',*/
+    'gabbler.timeline.global',
     'gabbler.profile.service',
     'gabbler.profile',
     'toastr'
 
 
 ]);
+
 gabblerApp.config(['$routeProvider',
         function($routeProvider) {
             $routeProvider.
@@ -34,12 +36,12 @@ gabblerApp.config(['$routeProvider',
                     // controller: 'Ctrl'
 
                 });
-           /* $routeProvider.
+            $routeProvider.
                 when('/timeline', {
                     templateUrl: '/main/webapp/app/js/modules/timeline_global/timeline_global.html'
                     // controller: 'Ctrl'
 
-                });*/
+                });
             $routeProvider.
                 when('/profile', {
                     templateUrl: '/main/webapp/app/js/modules/profile/profile.html',

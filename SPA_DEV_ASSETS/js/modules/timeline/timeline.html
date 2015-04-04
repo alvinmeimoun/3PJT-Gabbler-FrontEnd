@@ -92,7 +92,7 @@
     <input name="gab" type="text" ng-model="gab" class="form-control" placeholder="Type a gab">
         <button class="btn btn-warning form-control" ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
     </div>
-   <!-- <pre> {{ gabs | json }} </pre>-->
+    <pre> {{ gabs | json }} </pre>
 <div class="gabslist">
 
    <div class="gab-item" ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
@@ -100,7 +100,7 @@
        <table>
            <tr>
                <td>
-                   <div class="user-picture"><img  ng-src="{{ profilePicture }}"></div>
+                   <div class="user-picture"><img  ng-src="{{ gab.pictureProfile }}"></div>
                </td>
                <td>
                    <div class="form-group gab-content">
@@ -117,8 +117,7 @@
                        </ul>
                        <p id="gab">{{ gab.content }}</p>
                       <ul class="gab-actions">
-                       <li><a href="">Like</a></li>
-                       <li><a href="">Follow</a></li>
+                          <li><button ng-class="{'btn btn-info':gab.btnLike.state == 'Like','btn btn-danger':gab.btnLike.state == 'Unlike'}" ng-model="btnLike"  ng-click="likeOrUnlikeGab($index, gab.id)">{{gab.btnLike.state}}</button></li>
 
                       </ul>
 
@@ -132,9 +131,34 @@
 
 </div>
 <div class="col-md-3" id="timeline-col-3" ng-controller="suggestionsCtrl">
-    <button>{{ 'FIND_FRIEND' | translate }}</button>
-    <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
-    selected = {{ selected }}
+    <h3> Follow and Share </h3>
+    <input type="text" ng-model="search" id="searchUser" placeholder="Follow a friend" ng-change="searchUser()" class="form-control">
+   <!--<pre> {{ result | json }}</pre>-->
+    <div ng-if="result.length == 0">
+        <span> No result found </span>
+    </div>
+    <div ng-repeat="user in result | filter:search">
+        <table>
+            <tr>
+                <td>
+                    <div class="user-picture"><img ng-model="user.pictureProfile" ng-src="{{user.pictureProfile}}"></div>
+                </td>
+                <td>
+                    <div class="form-group user-content">
+                        <ul class="user-header">
+                            <li>{{ user.firstname }} {{ user.lastname }}</li>
+                            <li>@{{ user.nickname }}</li>
+
+                        </ul>
+                        <ul class="user-actions">
+                            <li><button ng-class="{'btn btn-info':user.btnFollow.state == 'Follow','btn btn-success':user.btnFollow.state == 'UnFollow'}" ng-model="btnFollow"  ng-click="followOrUnfollowUser($index, user.id)">{{user.btnFollow.state}}</button></li>
+                        </ul>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 

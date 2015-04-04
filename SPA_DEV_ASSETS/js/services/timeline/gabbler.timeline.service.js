@@ -12,10 +12,12 @@ angular.module('gabbler.timeline.service', [
             var service = {};
             var token;
             var userID;
+            token = $cookieStore.get("globals").currentUser.token;
+            userID = $cookieStore.get("globals").currentUser.userID;
+
             service.GetProfilePreview = function(callback)
             {
-                token = $cookieStore.get("globals").currentUser.token;
-                userID = $cookieStore.get("globals").currentUser.userID;
+
                 //AuthenticationService.GetCredentials().currentUser.token;
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                // var headers = { 'sessionAuthToken': '4733c400ae6cf9db51db171ae9587097e15609129273abda7b51a89e1a83b8f3' };
@@ -32,17 +34,6 @@ angular.module('gabbler.timeline.service', [
 
                         });
                 }
-                /*else if(id !== 0)
-                {
-                    $http.get("http://localhost:8082/gabbler/api/user/get?userId=" + id )
-                        .success(function (response, status) {
-                            callback(response, status);
-                        })
-                        .error(function (response, status) {
-                            callback(response, status);
-
-                        });
-                }*/
             };
             service.AddAGab = function(gab,callback)
             {
@@ -85,9 +76,6 @@ angular.module('gabbler.timeline.service', [
                     });
 
             };
-
-
-
             service.GetMyGabs = function(callback)
             {
                 var token = $cookieStore.get("globals").currentUser.token;
@@ -97,15 +85,76 @@ angular.module('gabbler.timeline.service', [
                 $http.get("http://localhost:8082/gabbler/api/gabs/timeline/user?userId=" + userID + "&startIndex=0&count=20" )
                     .success(function (response,status)
                     {
-                        callback(response,status);
+                        var formattedresponse = service.AddDatasToGabs(response);
+                        callback(formattedresponse,status);
                     })
                     .error(function (response,status)
                     {
                         callback(response,status);
 
                     });
+            };
+            service.GetGabsTimelineGlobal = function(callback)
+            {
+                $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+                $http.get("http://localhost:8082/gabbler/api/gabs/timeline?startIndex=0&count=20")
+                    .success(function(response, status)
+                    {
+                       var formattedresponse = service.AddDatasToGabs(response);
+                        callback(formattedresponse,status);
+                    })
+                    .error(function(response, status)
+                    {
+                        callback(response,status);
+                    });
 
+            };
 
+            service.AddDatasToGabs = function(response)
+            {
+                var states = ['Like', 'Unlike'];
+                var formattedresponse = response;
+
+                for (var i in formattedresponse) {
+                    if (formattedresponse.hasOwnProperty(i)) {
+                        // Permet de générer la miniature et le bouton like ou dislike
+                        formattedresponse[i].pictureProfile = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + formattedresponse[i].userId;
+                        var likers = formattedresponse[i].likers;
+                        if (likers.length !== 0 )
+                        {
+                            for(var j in likers)
+                            {
+                                if (likers.hasOwnProperty(j))
+                                {
+                                    if (likers[j].userID == userID)
+                                    {
+                                        formattedresponse[i].btnLike = {
+                                            state: states[1],
+                                            index: i
+                                        };
+                                    }
+                                    else
+                                    {
+                                        formattedresponse[i].btnLike = {
+                                            state: states[0],
+                                            index: i
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            formattedresponse[i].btnLike = {
+                                state: states[0],
+                                index: i
+                            };
+                        }
+
+                    }
+
+                }
+                return formattedresponse;
             };
             service.uploadFileToUrl = function(file,callback){
                 token = $cookieStore.get("globals").currentUser.token;
@@ -163,11 +212,85 @@ angular.module('gabbler.timeline.service', [
                 profilePicture =  'http://localhost:8082/gabbler/api/user/picture/profile/background?userID=' + userID + '&timestamp=' + timestamp;
                 return profilePicture;
             };
-            /*
-            service.SetPhoto = function (p) {
-                profilePicture = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + p;
 
-            };*/
 
+            service.SearchUser = function(search, callback) {
+
+                $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+                if (search !== "")
+                {
+                    $http.get("http://localhost:8082/gabbler/api/user/search?req=" + search)
+                        .success(function(response,status)
+                        {
+                            callback(response,status);
+                        })
+                        .error(function(response, status)
+                        {
+                            callback(response,status);
+                        });
+                }
+
+            };
+
+            // service permettant de Follow un user
+            service.FollowUser = function(followedUserId,callback)
+            {
+                $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+
+                $http.put("http://localhost:8082/gabbler/api/user/follow?userId=" + followedUserId)
+                    .success(function(response,status)
+                    {
+                        callback(response,status);
+                    })
+                    .error(function(response, status)
+                    {
+                        callback(response,status);
+                    });
+            };
+            // service permettant de Follow un user
+            service.UnFollowUser = function(followedUserId,callback)
+            {
+                $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+
+                $http.put("http://localhost:8082/gabbler/api/user/unfollow?userId=" + followedUserId)
+                    .success(function(response,status)
+                    {
+                        callback(response,status);
+                    })
+                    .error(function(response, status)
+                    {
+                        callback(response,status);
+                    });
+            };
+
+            service.LikeGab = function(gabId, callback)
+            {
+                $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+
+                $http.put("http://localhost:8082/gabbler/api/gabs/like?gabsId=" + gabId)
+                    .success(function(response,status)
+                    {
+                        callback(response,status);
+                    })
+                    .error(function(response, status)
+                    {
+                        callback(response,status);
+                    });
+            };
+
+            service.DislikeGab = function(gabId, callback)
+            {
+                $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+
+                $http.put("http://localhost:8082/gabbler/api/gabs/unlike?gabsId=" + gabId)
+                    .success(function(response,status)
+                    {
+                        callback(response,status);
+                    })
+                    .error(function(response, status)
+                    {
+                        callback(response,status);
+                    });
+            };
             return service;
         }]);
