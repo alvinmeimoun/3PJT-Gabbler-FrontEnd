@@ -27,7 +27,8 @@
     "LOGIN_OR_SIGNIN" : "OR",
     "LOGIN_LOG_IN_FORM_PLACEHOLDER_DISPLAYNAME" : "Display Name",
     "MODULE_TITLE_SIGNIN" : "Sign In",
-
+    "LIKE_THIS" : " like this.",
+    "FOLLOW_OR_SHARE": "Follow and Share",
     "SIGNIN_FIELD_PLACEHOLDER_SUPINFO_ID" : "Supinfo ID",
     "SIGNIN_ERROR_SUPINFO_ID_EXIST" : "Supinfo ID already used.",
     "SIGNIN_FIELD_PLACEHOLDER_LOGIN" : "Login",

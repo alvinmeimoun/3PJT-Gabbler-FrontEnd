@@ -4,7 +4,7 @@
 
 angular.module('gabbler.timeline.global' , [
 
-    'gabbler.timeline.service', 'toastr' , 'ui.bootstrap'
+    'gabbler.timeline.service', 'toastr' , 'ui.bootstrap', 'gabbler.server.service'
 
 
 ])
@@ -169,10 +169,89 @@ angular.module('gabbler.timeline.global' , [
         };
     })
 
-    .controller('suggestionsGlobalCtrl', function($scope,$cookieStore, $location ){
+    .controller('suggestionsGlobalCtrl', function($scope,$cookieStore, $location , ServerLink, TimelineServices){
 
-        $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+        $scope.states = ['Follow', 'UnFollow'];
+        $scope.search = " ";
 
+            TimelineServices.SearchUser($scope.search, function(response, status)
+            {
+                if(status === 200)
+                {
+                    var temp;
+                    temp = response;
+                    for (var i in temp) {
+                        if (temp.hasOwnProperty(i)) {
+                            if(temp[i].following === true){
+                                temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
+                                temp[i].btnFollow = {
+                                    state: $scope.states[1],
+                                    index: i
+
+                                };
+                            }
+                            else {
+                                temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
+                                temp[i].btnFollow = {
+                                    state: $scope.states[0],
+                                    index: i
+
+                                };
+                            }
+                        }
+                    }
+                    $scope.result = temp;
+
+                    //$scope.btnState = $scope.states[0];
+                }
+                else
+                {
+                    $scope.result = {};
+                }
+            });
+
+
+        $scope.followOrUnfollowUser = function(index,userId) {
+
+            toastr.info($scope.result[index].btnFollow.state);
+            //toastr.info( $scope.result[index].btnState);
+            //  var users = $scope.result;
+            if($scope.result[index].btnFollow.state === $scope.states[0])
+            {
+                TimelineServices.FollowUser(userId, function(response,status)
+                {
+                    if(status === 200 )
+                    {
+                        $scope.result[index].btnFollow.state = $scope.states[1];
+                        //$scope.result[index].btnState = $scope.states[1];
+                        //toastr.info("user followed"  + index + " " + userId);
+                    }
+                    else
+                    {
+                        toastr.error("error with the server");
+                    }
+
+                });
+            }
+            else
+            {
+                TimelineServices.UnFollowUser(userId, function(response,status)
+                {
+                    if(status === 200 )
+                    {
+                        $scope.result[index].btnFollow.state = $scope.states[0];
+                        // $scope.btnState = $scope.states[0];
+                        toastr.info("user unfollowed"  + index + " " + userId);
+                    }
+                    else
+                    {
+                        toastr.error("error with the server");
+                    }
+
+                });
+            }
+
+        };
     });
 
 

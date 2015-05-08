@@ -4,7 +4,11 @@
 
 angular.module('gabbler.timeline' , [
 
-'gabbler.timeline.service', 'toastr' , 'ui.bootstrap'
+    'gabbler.server.service',
+    'gabbler.timeline.service',
+    'toastr' ,
+    'ui.bootstrap' ,
+    'gabbler.login.service'
 
 
 ])
@@ -124,39 +128,47 @@ angular.module('gabbler.timeline' , [
     }])
 
 
-    .controller('timelineCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope){
+    .controller('timelineCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope, AuthenticationService){
 
 
         var gab = $scope.gab;
         var userID = $cookieStore.get("globals").currentUser.userID;
         var gabs = [];
+      /*  if(AuthenticationService.GetCredentials() === "undefined" )
+        {
+            $location.path('/');
+        }*/
 
 
         TimelineServices.GetMyGabs(function(response) {
-            //$scope.gabs = response;
-            var formattedresponse = response;
-            gabs = response;
-            $scope.gabs = gabs;
-            /*$scope.$watch('photoChanged', function()
-            {
-                $scope.profilePicture = TimelineServices.setProfilePicture();
+            $scope.gabs = response;
+        });
 
 
-            });*/
-           setInterval(function () {
+            setInterval(function () {
                 $scope.$apply(function () {
-                    for (var i in response)
-                    {
-                        if(response.hasOwnProperty(i))
-                        {
+                    TimelineServices.GetMyGabs(function(response) {
+                        //$scope.gabs = response;
+                        /*var formattedresponse = response;
+                        gabs = response;
+                        $scope.gabs = gabs;*/
+
+                    /*for (var i in response) {
+                        if (response.hasOwnProperty(i)) {
                             formattedresponse[i].pictureProfile = TimelineServices.setProfilePicture();
                         }
-                    }
+                    }*/
+
+
+
                     $scope.gabs = response;
-                   // $scope.profilePicture = TimelineServices.setProfilePicture();
+
+                    // $scope.profilePicture = TimelineServices.setProfilePicture();
                     //$scope.profilePicture = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + userID;
                 });
-            },10000);
+                });
+            }, 10000);
+
 
             TimelineServices.GetProfilePreview(function(response)
             {
@@ -165,7 +177,7 @@ angular.module('gabbler.timeline' , [
 
             });
 
-        });
+
         $scope.addGab = function ()
         {
         TimelineServices.AddAGab($scope.gab,function(response)
@@ -197,49 +209,40 @@ angular.module('gabbler.timeline' , [
         // Like ou dislikes des gabs
 
         $scope.states = ['Like', 'Unlike'];
-        $scope.likeOrUnlikeGab = function(index,gabId)
-        {
-            if($scope.gabs[index].btnLike.state === $scope.states[0])
-            {
-                TimelineServices.LikeGab(gabId, function(response,status)
-                {
-                    if(status === 200 )
-                    {
+        $scope.likeOrUnlikeGab = function(index,gabId) {
+            if ($scope.gabs[index].btnLike.state === $scope.states[0]) {
+                TimelineServices.LikeGab(gabId, function (response, status) {
+                    if (status === 200) {
                         $scope.gabs[index].btnLike.state = $scope.states[1];
                         //$scope.result[index].btnState = $scope.states[1];
-                        TimelineServices.GetMyGabs(function(response) {
+                        TimelineServices.GetMyGabs(function (response) {
                             //$scope.gabs = response;
                             var formattedresponse = response;
                             gabs = response;
                             $scope.gabs = gabs;
                         });
-                        toastr.info("gab like "  + index + " " + gabId );
+                        toastr.info("gab like " + index + " " + gabId);
                     }
-                    else
-                    {
+                    else {
                         toastr.error("error with the server");
                     }
 
                 });
             }
-            else
-            {
-                TimelineServices.DislikeGab(gabId, function(response,status)
-                {
-                    if(status === 200 )
-                    {
+            else {
+                TimelineServices.DislikeGab(gabId, function (response, status) {
+                    if (status === 200) {
                         $scope.gabs[index].btnLike.state = $scope.states[0];
                         // $scope.btnState = $scope.states[0];
-                        TimelineServices.GetMyGabs(function(response) {
+                        TimelineServices.GetMyGabs(function (response) {
                             //$scope.gabs = response;
                             var formattedresponse = response;
                             gabs = response;
                             $scope.gabs = gabs;
                         });
-                        toastr.info("gab unlike"  + index + " " + gabId);
+                        toastr.info("gab unlike" + index + " " + gabId);
                     }
-                    else
-                    {
+                    else {
                         toastr.error("error with the server");
                     }
 
@@ -253,9 +256,10 @@ angular.module('gabbler.timeline' , [
 
 
 
+
     })
 
-    .controller('suggestionsCtrl', function($scope,$cookieStore, $location , TimelineServices, toastr){
+    .controller('suggestionsCtrl', function($scope,$cookieStore, $location , TimelineServices, toastr, ServerLink){
 
        // $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
        $scope.states = ['Follow', 'UnFollow'];
@@ -269,17 +273,27 @@ angular.module('gabbler.timeline' , [
                     temp = response;
                     for (var i in temp) {
                         if (temp.hasOwnProperty(i)) {
-                            temp[i].pictureProfile = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + temp[i].id;
-                            temp[i].btnFollow = {
-                                state: $scope.states[0],
-                                index: i
+                            if(temp[i].following === true){
+                                temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
+                                temp[i].btnFollow = {
+                                    state: $scope.states[1],
+                                    index: i
 
-                            };
+                                };
+                            }
+                            else {
+                                temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
+                                temp[i].btnFollow = {
+                                    state: $scope.states[0],
+                                    index: i
+
+                                };
+                            }
                         }
                     }
                     $scope.result = temp;
 
-                    $scope.btnState = $scope.states[0];
+                    //$scope.btnState = $scope.states[0];
                 }
                 else
                 {
@@ -288,8 +302,7 @@ angular.module('gabbler.timeline' , [
             });
         };
 
-        $scope.followOrUnfollowUser = function(index,userId)
-        {
+        $scope.followOrUnfollowUser = function(index,userId) {
 
             toastr.info($scope.result[index].btnFollow.state);
             //toastr.info( $scope.result[index].btnState);

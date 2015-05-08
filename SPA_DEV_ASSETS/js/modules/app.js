@@ -5,16 +5,17 @@
 var gabblerApp = angular.module('gabblerApp', [
     'ngRoute',
     'ngAnimate',
-    /*'gabbler.server.service',*/
+    'gabbler.server.service',
     'gabbler.translate',
     'gabbler.login.service',
+    'gabbler.timeline.service',
+    'gabbler.timeline',
+    'gabbler.timeline.global',
     'gabbler.menu',
     'gabbler.login',
     'gabbler.register.service',
     'gabbler.register',
     'gabbler.home',
-    'gabbler.timeline',
-    'gabbler.timeline.global',
     'gabbler.profile.service',
     'gabbler.profile',
     'toastr'

@@ -92,7 +92,7 @@
     <input name="gab" type="text" data-ng-model="gab" class="form-control" placeholder="Type a gab">
         <button class="btn btn-warning form-control" data-ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
     </div>
-    <pre> {{ gabs | json }} </pre>
+    <!--<pre> {{ gabs | json }} </pre>-->
 <div class="gabslist">
 
    <div class="gab-item" data-ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
@@ -115,8 +115,11 @@
                            <li> le {{ gab.postDate | date:'dd-MM-yyyy HH:mm' }}</li>
 
                        </ul>
+
                        <p id="gab">{{ gab.content }}</p>
+
                       <ul class="gab-actions">
+                          <li data-ng-if="gab.isLiked"> {{ gab.formattedLikers }} {{ 'LIKE_THIS' | translate }}</li>
                           <li><button data-ng-class="{'btn btn-info':gab.btnLike.state == 'Like','btn btn-danger':gab.btnLike.state == 'Unlike'}" data-ng-model="btnLike"  data-ng-click="likeOrUnlikeGab($index, gab.id)">{{gab.btnLike.state}}</button></li>
 
                       </ul>
@@ -131,12 +134,13 @@
 
 </div>
 <div class="col-md-3" id="timeline-col-3" data-ng-controller="suggestionsCtrl">
-    <h3> Follow and Share </h3>
+    <h3> {{ 'FOLLOW_OR_SHARE' | translate }} </h3>
     <input type="text" data-ng-model="search" id="searchUser" placeholder="Follow a friend" data-ng-change="searchUser()" class="form-control">
    <!--<pre> {{ result | json }}</pre>-->
     <div data-ng-if="result.length == 0">
         <span> No result found </span>
     </div>
+    <!--<pre> {{ result | json }}</pre>-->
     <div data-ng-repeat="user in result | filter:search">
         <table>
             <tr>
@@ -150,6 +154,7 @@
                             <li>@{{ user.nickname }}</li>
 
                         </ul>
+
                         <ul class="user-actions">
                             <li><button data-ng-class="{'btn btn-info':user.btnFollow.state == 'Follow','btn btn-success':user.btnFollow.state == 'UnFollow'}" data-ng-model="btnFollow"  data-ng-click="followOrUnfollowUser($index, user.id)">{{user.btnFollow.state}}</button></li>
                         </ul>

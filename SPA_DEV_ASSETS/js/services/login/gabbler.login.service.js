@@ -5,37 +5,22 @@
  */
 //var PROJET = require('./projet');
 angular.module('gabbler.login.service', [
-'toastr'
+'toastr',
+    'gabbler.server.service'
 ])
 
 
     .factory('AuthenticationService',
-    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout', 'toastr',
-        function (Base64, $http, $cookieStore, $rootScope, $timeout, toastr) {
+    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout', 'toastr', 'ServerLink',
+        function (Base64, $http, $cookieStore, $rootScope, $timeout, toastr , ServerLink) {
             var service = {};
-
+            // Methode permettant le login de l'utilisateur
             service.Login = function (username, pwd, callback) {
 
-                /* Dummy authentication for testing, uses $timeout to simulate api call
-                 ----------------------------------------------*/
-                /*$timeout(function(){
-
-                    var response = { success: username === 'test' && pwd === 'test' };
-                    if(!response.success) {
-                        response.message = 'Username or password is incorrect';
-                        console.log("Erreur success api");
-                    }
-                    callback(response);
-                }, 1000);*/
-
-
-                /* Use this for real authentication
-                 ----------------------------------------------*/
                 var requestData = { "password": pwd,"username": username };
+                var url = ServerLink.GetBaseUrlFromServer() + '/login';
 
-                    console.log("http request");
-                    var loginResponse ;
-                    $http.post( "http://localhost:8082/gabbler/api/login" /*+ ServerLink.GetUrlEndpoint.loginUrl */, requestData )
+                    $http.post( url , requestData )
                     .success(function (response,status)
                     {
                         service.SetCredentials(username, response.token , response.userID);
@@ -43,6 +28,7 @@ angular.module('gabbler.login.service', [
                         toastr.success('You are now connected !');
                         //toastr.success($cookieStore.get('globals').currentUser.userID);
                         callback(response,status);
+
                     })
                     .error(function (response,status)
                     {
@@ -51,17 +37,13 @@ angular.module('gabbler.login.service', [
 
                     });
             };
+            // Methode permettant le logout de l'utilisateur
             service.Logout = function (callback) {
                 var requestData = {"token" : $cookieStore.get("globals").currentUser.token  };
-               /* var headers = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                };*/
                 var token = $cookieStore.get("globals").currentUser.token;
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-
-                $http.get("http://localhost:8082/gabbler/api/logout",requestData )
+                var url = ServerLink.GetBaseUrlFromServer() + '/logout';
+                $http.get( url,requestData )
                     .success(function (response,status)
                     {
                         toastr.info('You have been disconnected !', 'Good Bye !');
@@ -73,8 +55,8 @@ angular.module('gabbler.login.service', [
                         callback(response,status);
 
                     });
-
             };
+            // Methode permettant l'ajout de données utilisateur dans un cookie
             service.SetCredentials = function (username, token, userID) {
                // var authdata = Base64.encode(username + ':' + pwd);
                 $rootScope.globals = {
@@ -88,10 +70,11 @@ angular.module('gabbler.login.service', [
                $cookieStore.put('globals', $rootScope.globals);
 
             };
+            // Methode permmetant de récupérer les données utilisateur contenues dans le cookie
             service.GetCredentials = function() {
                 return $cookieStore.get("globals");
             };
-
+            // Methode permettant de vider le cookie
             service.ClearCredentials = function () {
                 $rootScope.globals = {};
                 $cookieStore.remove('globals');

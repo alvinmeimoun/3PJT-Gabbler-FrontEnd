@@ -51,7 +51,8 @@
     "EVENTS_PARTICIPANTS_BUTTON" : "Afficher participants",
     "EVENTS_REGISTERED" : "Je serai présent",
     "EVENTS_NOT_REGISTERED" : "Je ne serai pas présent",
-
+    "LIKE_THIS" : " aiment ça.",
+    "FOLLOW_OR_SHARE": "Suivez et Partagez",
     "CREATE" : "Créer",
     "CANCEL" : "Annuler",
 

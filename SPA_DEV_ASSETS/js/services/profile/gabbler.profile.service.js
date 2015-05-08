@@ -5,24 +5,25 @@
  */
 
 angular.module('gabbler.profile.service', [
-
+    'gabbler.server.service'
 
     ])
 
     .factory('ProfileService',
-    ['$http', '$cookieStore', '$rootScope', '$timeout',
-        function ( $http, $cookieStore, $rootScope, $timeout) {
+    ['$http', '$cookieStore', '$rootScope', '$timeout', 'ServerLink',
+        function ( $http, $cookieStore, $rootScope, $timeout , ServerLink) {
             var service = {};
             var token;
             var userID;
-
+            // Méthode permettant de récupérer les données du profil utilisateur
             service.GetUserDatas = function(callback) {
                     token = $cookieStore.get("globals").currentUser.token;
                     userID = $cookieStore.get("globals").currentUser.userID;
                     //AuthenticationService.GetCredentials().currentUser.token;
                     $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                     if( userID !== "0") {
-                        $http.get("http://localhost:8082/gabbler/api/user/get?userId=" + userID)
+                        var url = ServerLink.GetBaseUrlFromServer() + '/user/get?userId=';
+                        $http.get(url + userID)
                             .success(function (response, status) {
                                 callback(response, status);
                             })
@@ -33,6 +34,7 @@ angular.module('gabbler.profile.service', [
                     }
             };
 
+            // Méthode permettant de mettre à jour les données du profil utilisateur
             service.UpdateUserDatas = function(firstname,lastname,nickname,displayname,email,birthdate,callback) {
                 token = $cookieStore.get("globals").currentUser.token;
                 userID = $cookieStore.get("globals").currentUser.userID;
@@ -51,8 +53,8 @@ angular.module('gabbler.profile.service', [
                     "creationDate": lastModification
                 };
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Raw', 'sessionAuthToken': token};
-
-                $http.post("http://localhost:8082/gabbler/api/user/update",requestData)
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/update';
+                $http.post(url,requestData)
                     .success(function (response,status)
                     {
                         callback(response,status);
@@ -66,6 +68,7 @@ angular.module('gabbler.profile.service', [
 
             };
 
+            // Méthode permettant de mettre à jour le mot de passe utilisateur
             service.UpdatePassword = function(oldPassword,newPassword, callback) {
                 token = $cookieStore.get("globals").currentUser.token;
                 var requestData =
@@ -74,8 +77,8 @@ angular.module('gabbler.profile.service', [
                     "newPassword" : newPassword
                 };
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Raw', 'sessionAuthToken': token};
-
-                $http.post("http://localhost:8082/gabbler/api/user/password_change",requestData)
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/password_change';
+                $http.post(url,requestData)
                     .success(function (response,status)
                     {
                         callback(response,status);
@@ -86,6 +89,7 @@ angular.module('gabbler.profile.service', [
 
                     });
             };
+
             return service;
         }
 

@@ -73,6 +73,7 @@
                             </ul>
                             <p id="gab">{{ gab.content }}</p>
                             <ul class="gab-actions">
+                                <li ng-if="gab.isLiked"> {{ gab.formattedLikers }} {{ 'LIKE_THIS' | translate }}</li>
                                 <li><button ng-class="{'btn btn-info':gab.btnLike.state == 'Like','btn btn-danger':gab.btnLike.state == 'Unlike'}" ng-model="btnLike"  ng-click="likeOrUnlikeGab($index, gab.id)">{{gab.btnLike.state}}</button></li>
                             </ul>
 
@@ -89,6 +90,32 @@
    <!-- <button>{{ 'FIND_FRIEND' | translate }}</button>
     <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
     selected = {{ selected }}-->
+    <h3> {{ 'FOLLOW_OR_SHARE' | translate }} </h3>
+
+    <!--<pre> {{ result | json }}</pre>-->
+    <div ng-repeat="user in result | filter:search">
+        <table>
+            <tr>
+                <td>
+                    <div class="user-picture"><img ng-model="user.pictureProfile" ng-src="{{user.pictureProfile}}"></div>
+                </td>
+                <td>
+                    <div class="form-group user-content">
+                        <ul class="user-header">
+                            <li>{{ user.firstname }} {{ user.lastname }}</li>
+                            <li>@{{ user.nickname }}</li>
+
+                        </ul>
+
+                        <ul class="user-actions">
+                            <li><button ng-class="{'btn btn-info':user.btnFollow.state == 'Follow','btn btn-success':user.btnFollow.state == 'UnFollow'}" ng-model="btnFollow"  ng-click="followOrUnfollowUser($index, user.id)">{{user.btnFollow.state}}</button></li>
+                        </ul>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 
