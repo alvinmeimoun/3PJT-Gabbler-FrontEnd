@@ -18,3 +18,5 @@ atlassian-ide-plugin.xml
 
 #Others
 *.log
+*.min.js
+*.min.css
