@@ -137,8 +137,9 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.gabs[index].btnLike.state = $scope.states[1];
-                        //$scope.result[index].btnState = $scope.states[1];
-                        toastr.info("gab like "  + index + " " + gabId );
+                        TimelineServices.GetGabsTimelineGlobal(function(response) {
+                            $scope.gabs = response;
+                        });
                     }
                     else
                     {
@@ -154,8 +155,9 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.gabs[index].btnLike.state = $scope.states[0];
-                        // $scope.btnState = $scope.states[0];
-                        toastr.info("gab unlike"  + index + " " + gabId);
+                        TimelineServices.GetGabsTimelineGlobal(function(response) {
+                            $scope.gabs = response;
+                        });
                     }
                     else
                     {

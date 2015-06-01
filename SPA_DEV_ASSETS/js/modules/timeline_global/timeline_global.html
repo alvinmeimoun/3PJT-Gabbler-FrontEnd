@@ -57,8 +57,9 @@
         </div>
     </div>
     </form>
+    <pre> {{ gabs | json }}</pre>
     <div class="gabslist">
-        <!--<pre> {{ gabs | json }}</pre>-->
+
         <div class="gab-item" ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
             <!--<div class="img-circle"><img src="/main/img/twitter-happy-2640049b-215351.jpg"></div>-->
             <table>
