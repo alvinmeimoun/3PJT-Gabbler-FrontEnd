@@ -32,7 +32,7 @@ angular.module('gabbler.login.service', [
                     })
                     .error(function (response,status)
                     {
-                        toastr.error('Error while connecting !');
+                       // toastr.error('Error while connecting !');
                         callback(response,status);
 
                     });

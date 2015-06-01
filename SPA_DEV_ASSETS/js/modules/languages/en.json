@@ -62,5 +62,8 @@
     "PROFILE_UPDATE_PWD" : "Update Password",
 
     "MENU_EDIT_PROFILE" : "Edit Profile",
-    "MENU_LOGOUT" : "Logout"
+    "MENU_LOGOUT" : "Logout",
+    "TIMELINE_TITLE" : "Timeline",
+    "PROFILE_PAGE_TITLE" : "My Profile",
+    "LIMIT_EXCEED" : "The limit of the sentence is 255 characters, please reduce your sentence."
 }

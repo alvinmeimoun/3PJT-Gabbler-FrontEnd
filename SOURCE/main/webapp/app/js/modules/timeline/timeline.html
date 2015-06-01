@@ -1,10 +1,10 @@
 <div id="couverture_container" data-ng-controller="profileBackgroundCtrl">
     <img data-ng-model="profileBackGroundPicture" data-ng-src="{{ profileBackGroundPicture }}" >
-    <div class="btn-group-vertical buttons_profile" role="group">
-        <button type="button" class="btn btn-success btn-sm" id="addProfilePictureButton" data-toggle="modal" data-target="#myModal" >
+    <div  class="btn-group-vertical buttons_profile" role="group">
+        <button data-ng-if="!disabledButtons" type="button" class="btn btn-success btn-sm" id="addProfilePictureButton" data-toggle="modal" data-target="#myModal" >
             Change My Profile Picture
         </button>
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" id="addBackgroundButton" data-target="#myModalBackground" >
+        <button data-ng-if="!disabledButtons" type="button" class="btn btn-info btn-sm" data-toggle="modal" id="addBackgroundButton" data-target="#myModalBackground" >
             Change My Background Picture
         </button>
     </div>
@@ -87,11 +87,16 @@
 </div>
 <div class="col-md-6" id="timeline-col-2" data-ng-controller="timelineCtrl">
 
-
+<form data-ng-if="!disabledButtons"  name="myForm" data-ng-submit="addGab()">
     <div class="form-inline form-group gab-input" >
-    <input name="gab" type="text" data-ng-model="gab" class="form-control" placeholder="Type a gab">
-        <button class="btn btn-warning form-control" data-ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
+    <input name="gab" type="text" data-ng-model="gab" class="form-control" data-ng-maxlength="255" placeholder="{{ 'PUBLISH_GAB' | translate }}">
+
+        <button type="submit" class="btn btn-warning form-control" data-ng-disabled="myForm.$invalid" >{{ 'PUBLISH_GAB' | translate }}</button>
+        <div role="alert" style="color:white;">
+            <span class="error" data-ng-show="myForm.gab.$error.maxlength"> {{ 'LIMIT_EXCEED' | translate }}</span>
+        </div>
     </div>
+</form>
     <!--<pre> {{ gabs | json }} </pre>-->
 <div class="gabslist">
 
@@ -118,7 +123,7 @@
 
                        <p id="gab">{{ gab.content }}</p>
 
-                      <ul class="gab-actions">
+                      <ul data-ng-if="!disabledButtons"  class="gab-actions">
                           <li data-ng-if="gab.isLiked"> {{ gab.formattedLikers }} {{ 'LIKE_THIS' | translate }}</li>
                           <li><button data-ng-class="{'btn btn-info':gab.btnLike.state == 'Like','btn btn-danger':gab.btnLike.state == 'Unlike'}" data-ng-model="btnLike"  data-ng-click="likeOrUnlikeGab($index, gab.id)">{{gab.btnLike.state}}</button></li>
 

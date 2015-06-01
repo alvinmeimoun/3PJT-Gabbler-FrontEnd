@@ -21,9 +21,18 @@ angular.module('gabbler.timeline.service', [
             userID = $cookieStore.get("globals").currentUser.userID;
 
             // Méthode permettant de récupérer les données du profil utilisateur pour un affichage minimal
-            service.GetProfilePreview = function(callback) {
+            service.GetProfilePreview = function(optionalVisitedUserId,callback) {
                 //var test = urlServer;
                 //toastr.info('test' , test );
+                //toastr.info("service :" , optionalVisitedUserId);
+                if (optionalVisitedUserId !== 0){
+
+                    userID = optionalVisitedUserId;
+                }
+                else
+                {
+                    userID = $cookieStore.get("globals").currentUser.userID;
+                }
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/user/get?userId=';
                 if(userID) {
@@ -82,9 +91,18 @@ angular.module('gabbler.timeline.service', [
             };
 
             // Méthode permettant de récupérer les gabs d'un utilisateur
-            service.GetMyGabs = function(callback) {
+            service.GetMyGabs = function(optionalVisitedUserId,callback) {
                 var token = $cookieStore.get("globals").currentUser.token;
-                var userID = $cookieStore.get("globals").currentUser.userID;
+                var userID = 0;
+                if (optionalVisitedUserId !== 0)
+                {
+                    userID = optionalVisitedUserId;
+                }
+                else
+                {
+                    userID = $cookieStore.get("globals").currentUser.userID;
+                }
+
                 var url = urlServer + '/gabs/timeline/user?userId=';
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
 
@@ -263,14 +281,18 @@ angular.module('gabbler.timeline.service', [
                     });
             };
 
-            // Méthode permmetant la mise à jour de la photo de couverture
+            // Méthode permettant la mise à jour de la photo de couverture
             service.setBackgroundPicture = function() {
-                userID = $cookieStore.get("globals").currentUser.userID;
-                var timestamp =  new Date().getTime();
-
-                //var url = urlServer + '/user/picture/profile/background?userID=';
-
-               // profilePicture = url + userID + '&timestamp=' + timestamp;
+                //userID = $cookieStore.get("globals").currentUser.userID;
+               var timestamp =  new Date().getTime();
+                if (optionalVisitedUserId !== 0)
+                {
+                    userID = optionalVisitedUserId;
+                }
+                else
+                {
+                    userID = $cookieStore.get("globals").currentUser.userID;
+                }
                 profilePicture = urlServer + '/user/picture/profile/background?userID='  + userID + '&timestamp=' + timestamp;
                 return profilePicture;
             };
