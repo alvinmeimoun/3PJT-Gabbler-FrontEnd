@@ -15,3 +15,8 @@ bower_components
 
 #Atlassian
 atlassian-ide-plugin.xml
+
+#Others
+*.log
+*.min.js
+*.min.css
