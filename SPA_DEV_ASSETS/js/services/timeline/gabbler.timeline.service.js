@@ -128,7 +128,7 @@ angular.module('gabbler.timeline.service', [
                 $http.get(url)
                     .success(function(response, status)
                     {
-                       var formattedresponse = service.AddDatasToGabs(response);
+                        var formattedresponse = service.AddDatasToGabs(response);
                         var formattedresponseWithLikers = service.AddLikersSentence(formattedresponse);
                         callback(formattedresponseWithLikers,status);
                     })

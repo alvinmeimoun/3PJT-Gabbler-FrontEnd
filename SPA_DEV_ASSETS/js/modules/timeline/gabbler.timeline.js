@@ -217,8 +217,7 @@ angular.module('gabbler.timeline' , [
                         $scope.gabs[index].btnLike.state = $scope.states[1];
                         //$scope.result[index].btnState = $scope.states[1];
                         TimelineServices.GetMyGabs(function (response) {
-                            //$scope.gabs = response;
-                            var formattedresponse = response;
+
                             gabs = response;
                             $scope.gabs = gabs;
                         });
@@ -236,8 +235,6 @@ angular.module('gabbler.timeline' , [
                         $scope.gabs[index].btnLike.state = $scope.states[0];
                         // $scope.btnState = $scope.states[0];
                         TimelineServices.GetMyGabs(function (response) {
-                            //$scope.gabs = response;
-                            var formattedresponse = response;
                             gabs = response;
                             $scope.gabs = gabs;
                         });
