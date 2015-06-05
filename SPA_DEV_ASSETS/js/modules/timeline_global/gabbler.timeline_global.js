@@ -32,8 +32,17 @@ angular.module('gabbler.timeline.global' , [
             $scope.token = $cookieStore.get("globals").currentUser.token;
             var userID = $cookieStore.get("globals").currentUser.userID;
             var updated = 0;
+
             $scope.updated = 0;
-            TimelineServices.GetProfilePreview(function(response)
+            setInterval(function () {
+                $scope.$apply(function () {
+                    TimelineServices.GetMyGabs(0,function(response) {
+
+                        $scope.countGabs = response.length;
+                    });
+                });
+            }, 10000);
+            TimelineServices.GetProfilePreview(0,function(response)
             {
                 if (response) {
                     //   AuthenticationService.SetCredentials($scope.username, response.token);
@@ -47,14 +56,14 @@ angular.module('gabbler.timeline.global' , [
                     $scope.nickname = response.nickname;
                     $scope.result = user.data;
                     $scope.profilePicture = TimelineServices.setProfilePicture();
-                    $scope.coverPicture = TimelineServices.setBackgroundPicture();
+                    $scope.coverPicture = TimelineServices.setBackgroundPicture(0);
                 } else {
                     console.log("Erreur");
 
                 }
             });
 
-            var file = "";
+            /*var file = "";
             $scope.uploadFiles = function(){
                 file = $scope.myFile;
                 //console.log('file is ' + JSON.stringify(file));
@@ -65,7 +74,7 @@ angular.module('gabbler.timeline.global' , [
                     $scope.$broadcast('photoChanged');
 
                 } );
-            };
+            };*/
         }])
 
 
@@ -83,16 +92,6 @@ angular.module('gabbler.timeline.global' , [
 
             $scope.gabs = response;
 
-
-
-           /* TimelineServices.GetProfilePreview(function(response)
-            {
-                //toastr.info($cookieStore.get("globals").currentUser.userID);
-                $scope.username = response.nickname;
-
-            });
-            gabs = response;
-            $scope.gabs = gabs;*/
         });
         // Permet de mettre à jour la timeline toute les 30 secondes pour permettre à l'utilisateur d'avoir
         // une timeline à jour
@@ -138,8 +137,9 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.gabs[index].btnLike.state = $scope.states[1];
-                        //$scope.result[index].btnState = $scope.states[1];
-                        toastr.info("gab like "  + index + " " + gabId );
+                        TimelineServices.GetGabsTimelineGlobal(function(response) {
+                            $scope.gabs = response;
+                        });
                     }
                     else
                     {
@@ -155,8 +155,9 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.gabs[index].btnLike.state = $scope.states[0];
-                        // $scope.btnState = $scope.states[0];
-                        toastr.info("gab unlike"  + index + " " + gabId);
+                        TimelineServices.GetGabsTimelineGlobal(function(response) {
+                            $scope.gabs = response;
+                        });
                     }
                     else
                     {

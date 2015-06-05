@@ -6,10 +6,15 @@
     <h3> {{ firstname }} - {{ lastname }}</h3>
     <h4> @{{ nickname }} </h4>
 
-    <ul class="list-inline" id="listInformations">
+    <ul class="list-inline listInformations">
         <li>Gabs</li>
         <li>Following</li>
         <li>Followers</li>
+    </ul>
+    <ul class="list-inline listInformations" >
+        <li>{{ countGabs }}</li>
+        <li></li>
+        <li></li>
     </ul>
     <!--
     <a href="#">{{ 'GO_TO_PROFILE' | translate }} </a>
@@ -42,12 +47,17 @@
 </div>
 <div class="col-md-6" id="timeline-global-col-2" ng-controller="timelineGlobalCtrl">
 
-
+    <form name="myForm" ng-submit="addGab()">
     <div class="form-inline form-group gab-input" >
-        <input name="gab" type="text" ng-model="gab" class="form-control" placeholder="Type a gab">
-        <button class="btn btn-warning form-control" ng-click="addGab()" >{{ 'PUBLISH_GAB' | translate }}</button>
-    </div>
+        <input name="gab" type="text" ng-model="gab" ng-maxlength="255"  class="form-control" placeholder="{{ 'PUBLISH_GAB' | translate }}">
 
+        <button class="btn btn-warning form-control" ng-disabled="myForm.$invalid" >{{ 'PUBLISH_GAB' | translate }}</button>
+        <div role="alert" style="color:white;">
+            <span class="error" ng-show="myForm.gab.$error.maxlength"> {{ 'LIMIT_EXCEED' | translate }}</span>
+        </div>
+    </div>
+    </form>
+    <pre> {{ gabs | json }}</pre>
     <div class="gabslist">
 
         <div class="gab-item" ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
@@ -66,7 +76,7 @@
                             <ul class="gab-header">
                                 <li>{{ gab.displayName }}</li>
 
-                                <li>@{{ gab.displayName }}</li>
+                                <li><a ng-href="#/timeline/user?userId={{ gab.userId }}">@{{ gab.displayName }}</a></li>
                                 <li> - </li>
                                 <li> le {{ gab.postDate | date:'dd-MM-yyyy HH:mm' }}</li>
 

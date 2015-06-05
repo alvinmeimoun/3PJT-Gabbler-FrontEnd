@@ -1,7 +1,7 @@
 /**
  * Created by Antonin on 11/02/2015.
  */
-
+var optionalVisitedUserId;
 angular.module('gabbler.timeline' , [
 
     'gabbler.server.service',
@@ -48,8 +48,20 @@ angular.module('gabbler.timeline' , [
     // Controller gérant l'image de couverture
     .controller('profileBackgroundCtrl', function($scope, $location, TimelineServices)
     {
+        if (typeof($location.search().userId) !== "undefined")
+        {
+            optionalVisitedUserId = $location.search().userId;
+            $scope.disabledButtons = true;
 
-        $scope.profileBackGroundPicture = TimelineServices.setBackgroundPicture();
+        }
+        else
+        {
+            optionalVisitedUserId = 0;
+            $scope.disabledButtons = false;
+
+        }
+
+        $scope.profileBackGroundPicture = TimelineServices.setBackgroundPicture(optionalVisitedUserId);
 
         var file = {};
         $scope.uploadFiles = function() {
@@ -74,7 +86,17 @@ angular.module('gabbler.timeline' , [
         var userID = $cookieStore.get("globals").currentUser.userID;
         var updated = 0;
             $scope.updated = 0;
-       TimelineServices.GetProfilePreview(function(response)
+            if (typeof($location.search().userId) !== "undefined")
+            {
+                optionalVisitedUserId = $location.search().userId;
+                $scope.disabledButtons = true;
+            }
+            else
+            {
+                optionalVisitedUserId = 0;
+                $scope.disabledButtons = false;
+            }
+       TimelineServices.GetProfilePreview(optionalVisitedUserId,function(response)
         {
             if (response) {
              //   AuthenticationService.SetCredentials($scope.username, response.token);
@@ -98,79 +120,58 @@ angular.module('gabbler.timeline' , [
         $scope.uploadFiles = function(){
             file = $scope.myFile;
             //console.log('file is ' + JSON.stringify(file));
-            toastr.info('file is ' + JSON.stringify(file));
+
             TimelineServices.uploadFileToUrl(file, function(response) {
 
                     $scope.profilePicture = TimelineServices.setProfilePicture();
                 $scope.$broadcast('photoChanged');
 
             } );
-
-
-
         };
-
-            //$scope.imageSource = "";
-
-            /*var oldValue = $scope.profilePicture;
-            var newValue = file;
-            $scope.$watch('profilePicture',  function(newValue, oldValue)
-            {
-                if ( newValue !== oldValue) {
-
-                    $scope.updated++;
-                   //$scope.profilePicture = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + userID;
-                }
-            });*/
-
-
-
     }])
 
 
-    .controller('timelineCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope, AuthenticationService){
+    .controller('timelineCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope, AuthenticationService ){
 
 
+
+        if(AuthenticationService.GetCredentials() === "undefined" )
+        {
+            $location.path('/');
+        }
+
+        if (typeof($location.search().userId) !== "undefined")
+        {
+            optionalVisitedUserId = $location.search().userId;
+            $scope.disabledButtons = true;
+
+        }
+        else
+        {
+            optionalVisitedUserId = 0;
+            $scope.disabledButtons = false;
+
+        }
         var gab = $scope.gab;
         var userID = $cookieStore.get("globals").currentUser.userID;
         var gabs = [];
-      /*  if(AuthenticationService.GetCredentials() === "undefined" )
-        {
-            $location.path('/');
-        }*/
 
 
-        TimelineServices.GetMyGabs(function(response) {
+        TimelineServices.GetMyGabs(optionalVisitedUserId,function(response) {
             $scope.gabs = response;
         });
 
 
             setInterval(function () {
                 $scope.$apply(function () {
-                    TimelineServices.GetMyGabs(function(response) {
-                        //$scope.gabs = response;
-                        /*var formattedresponse = response;
-                        gabs = response;
-                        $scope.gabs = gabs;*/
-
-                    /*for (var i in response) {
-                        if (response.hasOwnProperty(i)) {
-                            formattedresponse[i].pictureProfile = TimelineServices.setProfilePicture();
-                        }
-                    }*/
-
-
-
+                    TimelineServices.GetMyGabs(optionalVisitedUserId,function(response) {
                     $scope.gabs = response;
-
-                    // $scope.profilePicture = TimelineServices.setProfilePicture();
-                    //$scope.profilePicture = 'http://localhost:8082/gabbler/api/user/picture/profile?userID=' + userID;
                 });
                 });
             }, 10000);
 
 
-            TimelineServices.GetProfilePreview(function(response)
+            TimelineServices.GetProfilePreview(optionalVisitedUserId,function(response)
             {
                 //toastr.info($cookieStore.get("globals").currentUser.userID);
                 $scope.username = response.nickname;
@@ -201,7 +202,7 @@ angular.module('gabbler.timeline' , [
             $scope.gabs = gabs;
           TimelineServices.DeleteGab(gabId,function(response, status)
             {
-                toastr.info(response + " " + status);
+                //toastr.info(response + " " + status);
             });
 
         };
@@ -216,12 +217,11 @@ angular.module('gabbler.timeline' , [
                         $scope.gabs[index].btnLike.state = $scope.states[1];
                         //$scope.result[index].btnState = $scope.states[1];
                         TimelineServices.GetMyGabs(function (response) {
-                            //$scope.gabs = response;
-                            var formattedresponse = response;
+
                             gabs = response;
                             $scope.gabs = gabs;
                         });
-                        toastr.info("gab like " + index + " " + gabId);
+
                     }
                     else {
                         toastr.error("error with the server");
@@ -235,12 +235,10 @@ angular.module('gabbler.timeline' , [
                         $scope.gabs[index].btnLike.state = $scope.states[0];
                         // $scope.btnState = $scope.states[0];
                         TimelineServices.GetMyGabs(function (response) {
-                            //$scope.gabs = response;
-                            var formattedresponse = response;
                             gabs = response;
                             $scope.gabs = gabs;
                         });
-                        toastr.info("gab unlike" + index + " " + gabId);
+
                     }
                     else {
                         toastr.error("error with the server");
@@ -304,7 +302,7 @@ angular.module('gabbler.timeline' , [
 
         $scope.followOrUnfollowUser = function(index,userId) {
 
-            toastr.info($scope.result[index].btnFollow.state);
+            ///toastr.info($scope.result[index].btnFollow.state);
             //toastr.info( $scope.result[index].btnState);
           //  var users = $scope.result;
             if($scope.result[index].btnFollow.state === $scope.states[0])
@@ -332,7 +330,7 @@ angular.module('gabbler.timeline' , [
                     {
                         $scope.result[index].btnFollow.state = $scope.states[0];
                        // $scope.btnState = $scope.states[0];
-                        toastr.info("user unfollowed"  + index + " " + userId);
+                        //toastr.info("user unfollowed"  + index + " " + userId);
                     }
                     else
                     {

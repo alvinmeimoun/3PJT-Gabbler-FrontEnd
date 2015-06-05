@@ -73,5 +73,8 @@
     "PROFILE_UPDATE" : "Mettre à jour mon profil",
     "PROFILE_UPDATE_PWD" : "Mettre à jour mon mot de passe",
     "MENU_EDIT_PROFILE" : "Modifier mon profil",
-    "MENU_LOGOUT" : "Se deconnecter"
+    "MENU_LOGOUT" : "Se deconnecter",
+    "TIMELINE_TITLE" : "Fil d'actualité",
+    "PROFILE_PAGE_TITLE" : "Mon profil",
+    "LIMIT_EXCEED" : "La limite du nombre de caractères est de 255 caractères, veuillez réduire le contenu de votre Gab."
 }
