@@ -33,6 +33,10 @@ angular.module('gabbler.timeline.global' , [
             var userID = $cookieStore.get("globals").currentUser.userID;
             var updated = 0;
 
+            TimelineServices.GetMyGabs(0,function(response) {
+
+                $scope.countGabs = response.length;
+            });
             $scope.updated = 0;
             setInterval(function () {
                 $scope.$apply(function () {
@@ -45,16 +49,8 @@ angular.module('gabbler.timeline.global' , [
             TimelineServices.GetProfilePreview(0,function(response)
             {
                 if (response) {
-                    //   AuthenticationService.SetCredentials($scope.username, response.token);
-                    //$scope.error = response.token;
                     user = response;
-                    //$scope.error = $cookieStore.get("globals");
-                    // $route.reload();
-                    //$scope.displayname = response.displayName;
-                    $scope.firstname = response.firstname;
-                    $scope.lastname = response.lastname;
-                    $scope.nickname = response.nickname;
-                    $scope.result = user.data;
+                    $scope.user = response;
                     $scope.profilePicture = TimelineServices.setProfilePicture();
                     $scope.coverPicture = TimelineServices.setBackgroundPicture(0);
                 } else {
@@ -63,18 +59,7 @@ angular.module('gabbler.timeline.global' , [
                 }
             });
 
-            /*var file = "";
-            $scope.uploadFiles = function(){
-                file = $scope.myFile;
-                //console.log('file is ' + JSON.stringify(file));
-                toastr.info('file is ' + JSON.stringify(file));
-                TimelineServices.uploadFileToUrl(file, function(response) {
 
-                    $scope.profilePicture = TimelineServices.setProfilePicture();
-                    $scope.$broadcast('photoChanged');
-
-                } );
-            };*/
         }])
 
 

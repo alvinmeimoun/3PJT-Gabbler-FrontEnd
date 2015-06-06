@@ -28,6 +28,7 @@
     "LOGIN_LOG_IN_FORM_PLACEHOLDER_DISPLAYNAME" : "Display Name",
     "MODULE_TITLE_SIGNIN" : "Sign In",
     "LIKE_THIS" : " like this.",
+    "LIKE" : "Like",
     "FOLLOW_OR_SHARE": "Follow and Share",
     "SIGNIN_FIELD_PLACEHOLDER_SUPINFO_ID" : "Supinfo ID",
     "SIGNIN_ERROR_SUPINFO_ID_EXIST" : "Supinfo ID already used.",
@@ -65,5 +66,13 @@
     "MENU_LOGOUT" : "Logout",
     "TIMELINE_TITLE" : "Timeline",
     "PROFILE_PAGE_TITLE" : "My Profile",
-    "LIMIT_EXCEED" : "The limit of the sentence is 255 characters, please reduce your sentence."
+    "LIMIT_EXCEED" : "The limit of the sentence is 255 characters, please reduce your sentence.",
+    "ON_LE" : "On",
+    "CHANGE_PROFILE_PICTURE" : "Change Profile Picture",
+    "CHANGE_BACKGROUND_PICTURE" : "Change Background Picture",
+    "MODAL_BACKGROUND_TITLE" : "Please Select Background Profile Picture",
+    "MODAL_PROFILE_TITLE" : "Please Select your Profile Picture",
+    "MODAL_BACKGROUND_ADD" : "Add Picture",
+    "MODAL_BACKGROUND_UPLOAD" : "Upload",
+    "MODAL_CLOSE" : "Close"
 }

@@ -76,5 +76,14 @@
     "MENU_LOGOUT" : "Se deconnecter",
     "TIMELINE_TITLE" : "Fil d'actualité",
     "PROFILE_PAGE_TITLE" : "Mon profil",
-    "LIMIT_EXCEED" : "La limite du nombre de caractères est de 255 caractères, veuillez réduire le contenu de votre Gab."
+    "LIMIT_EXCEED" : "La limite du nombre de caractères est de 255 caractères, veuillez réduire le contenu de votre Gab.",
+    "ON_LE" : "Le",
+    "CHANGE_PROFILE_PICTURE" : "Changer ma photo de profil",
+    "CHANGE_BACKGROUND_PICTURE" : "Changer ma photo de couverture",
+    "MODAL_BACKGROUND_TITLE" : "Sélectionner votre photo de couverture",
+    "MODAL_PROFILE_TITLE" : "Sélectionner votre photo de profil",
+    "MODAL_BACKGROUND_ADD" : "Ajouter une photo",
+    "MODAL_BACKGROUND_UPLOAD" : "Télécharger",
+    "MODAL_CLOSE" : "Fermer",
+    "LIKE" : "Aime ça"
 }

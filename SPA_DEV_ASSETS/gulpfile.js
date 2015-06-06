@@ -65,7 +65,7 @@ gulp.task('script', ['quality'], function(){
         .pipe(gulp.dest(scriptsBaseDestination));
 });
 // Plugins injection
-gulp.task('inject', function() {
+gulp.task('injection', function() {
     gulp.src(indexLocation)
         .pipe(inject(gulp.src(bowerfiles({read: false, debugging : false, env : env})), { ignorePath : "/bower_components/", addPrefix : "/app/js/lib/"}))
         .pipe(gulp.dest(indexDestination));

@@ -5,7 +5,7 @@
   "author": "crysis",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "~3.8.5",
+
     "gulp-angular-htmlify": "~1.0.0",
     "gulp-clean": "~0.3.1",
     "gulp-concat": "~2.3.3",

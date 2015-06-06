@@ -1,4 +1,4 @@
-Une fois le projet récupéré :
+﻿Une fois le projet récupéré :
 
 S'assurer que Node.JS est installé sur l'environnement de travail.
 
@@ -13,6 +13,10 @@ Se placer dans le dossier SPA_DEV_ASSETS
 Puis entrer les commandes :
 
 - npm install ( plutôt long environ 30 min)
+- Normalement à la suite de npm install bower s'intallera automatiquement 
+- Concernant Angular choisir la version 1.2.28
+
+Si bower ne s'installe pas exécuter la commande suivante :
 - npm install bower
 - bower update
 - bower install gulp
