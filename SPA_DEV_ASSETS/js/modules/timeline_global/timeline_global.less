@@ -218,44 +218,48 @@
   min-height: 500px;
   border-left:solid 1px #ebebeb;
 }
-#couverture_container
-{
+@media (max-width:970px) {
+  #couverture_container {
 
-  height: 420px;
-
-  background-color: white;
-  margin-bottom: 10px;
-
-  img
-  {
     height: 420px;
-    width:1140px;
-    position: absolute;
-    z-index:2;
-    /* max-width:100%;
-     max-height:100%;*/
-  }
 
-  .buttons_profile {
-    float: right;
-    margin-top: 29.2%;
-    width: 200px;
+    margin-bottom: 10px;
 
-    #addBackgroundButton {
-      z-index: 5;
-      position: relative;
-      float: right;
-      border-radius: 0;
+    img {
+      height: 420px;
+      width: 1140px;
+      position: absolute;
+      z-index: 2;
 
-      // margin-top: 34.2%;
+      max-width: 88%;
+      max-height: 40%;
     }
-    #addProfilePictureButton {
-      z-index: 5;
-      position: relative;
-      float: right;
-      border-radius: 0;
-      margin-bottom: 2%;
 
+    .buttons_profile {
+      float: right;
+      margin-top: 29.2%;
+      width: 200px;
+
+      #addBackgroundButton {
+        z-index: 5;
+        position: relative;
+        float: right;
+        border-radius: 0;
+        max-width: 50%;
+        max-height: 20%;
+
+        // margin-top: 34.2%;
+      }
+      #addProfilePictureButton {
+        z-index: 5;
+        position: relative;
+        float: right;
+        border-radius: 0;
+        margin-bottom: 2%;
+        max-width: 40%;
+
+
+      }
     }
   }
 }

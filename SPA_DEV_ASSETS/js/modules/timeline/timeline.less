@@ -1,320 +1,296 @@
-#timeline-col-1
-{
-  background-color: white;
-  min-height: 25%;
-  border-right: solid 1px #ebebeb;
-  //margin-right: 10px;
-  //order-radius:0.5em;
-  text-align: center;
-  padding: 10px;
-
-  #pictureProfile {
-    width: 150px;
-    height: 150px;
-
-    margin-top: -35%;
-    margin-left: 22%;
-
-    img
-    {
-      width: 150px;
-      height: 150px;
-      z-index: 6;
-      position: relative;
-      border: solid gray 2px;
 
 
-    }
-  }
-  h3
-  {
-
-  }
-  a
-  {
-
-  }
-}
-
-#timeline-col-2
-{
-  min-height: 500px;
-  //margin-right: 10px;
-
-  input {
-    width: 84%;
-    background-color: aliceblue;
-  }
-
-  .gabslist
-  {
+  #timeline-col-1 {
     background-color: white;
+    min-height: 25%;
+    border-right: solid 1px #ebebeb;
+    //margin-right: 10px;
+    //order-radius:0.5em;
+    text-align: center;
+    padding: 5px;
 
-    padding-top:10px;
-    //border-radius:0.5em;
-    margin-top:10px;
+    @media (min-width: 150px) {
+      #pictureProfile {
+        width: 150px;
+        height: 150px;
 
-    .gab-item
-    {
-      margin-left: 10px;
-      margin-right:10px;
-      border-bottom: solid 1px #E0E2E4;
-
-      .user-picture
-      {
-        height: 50px;
-        width: 50px;
-        border: solid #E0E2E4 1px;
+        margin-top: -35%;
+        margin-left: 22%;
 
         img {
-          height: 50px;
-          width: 50px;
-        }
-      }
-      table
-      {
-        tr
-        {
-          td:first-child
-          {
-            padding-left: 20px;
-          }
-          td:nth-child(2)
-          {
-            width: 200%;
-          }
+          width: 150px;
+          height: 150px;
+          z-index: 2;
+          max-height: 90%;
+          max-width: 90%;
+          position: relative;
+          border: solid gray 2px;
+
+
         }
       }
     }
-  }
-  .gab-input
-  {
 
-   // background-color: white;
-    background-color: cadetblue;
-    padding:20px;
-    //border-radius:0.5em;
-   // margin-top:10px;
-    button
-    {
-      border-radius: 0;
+    h4 {
+
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 3.6em;
+      line-height: 1.1em;
+
+    }
+
+    h3 {
+
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 3.6em;
+      line-height: 1.1em;
+
+      }
+
+    a {
+
     }
   }
-  .gab-content
-  {
 
-    padding: 10px;
 
-    .modal-header
-    {
-      border-bottom: none;
-    }
-    #gab
-    {
-      padding-left: 40px;
-    }
-    h4
-    {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .gab-header
-    {
+    #timeline-col-2 {
+      min-height: 500px;
+      //margin-right: 10px;
 
+      input {
+        width: 84%;
+        background-color: aliceblue;
+      }
+
+      .gabslist {
+        background-color: white;
+
+        padding-top: 10px;
+        //border-radius:0.5em;
+        margin-top: 10px;
+
+        .gab-item {
+          margin-left: 10px;
+          margin-right: 10px;
+          border-bottom: solid 1px #E0E2E4;
+
+          .user-picture {
+            height: 50px;
+            width: 50px;
+            border: solid #E0E2E4 1px;
+
+            img {
+              height: 50px;
+              width: 50px;
+            }
+          }
+
+          table {
+            tr {
+              td:first-child {
+                padding-left: 20px;
+              }
+              td:nth-child(2) {
+                width: 200%;
+              }
+            }
+          }
+        }
+      }
+      .gab-input {
+
+        // background-color: white;
+        background-color: cadetblue;
+        padding: 20px;
+        //border-radius:0.5em;
+        // margin-top:10px;
+        button {
+          border-radius: 0;
+        }
+      }
+      .gab-content {
+
+        padding: 10px;
+
+        .modal-header {
+          border-bottom: none;
+        }
+        #gab {
+          padding-left: 40px;
+        }
+        h4 {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .gab-header {
+
+          text-transform: none;
+          text-decoration: none;
+          list-style-type: none;
+          li {
+            display: inline;
+          }
+          li:first-child {
+            font-size: 16px;
+            font-weight: bold;
+            color: steelblue;
+          }
+          li:nth-child(2) {
+            padding-left: 10px;
+            padding-right: 10px;
+            color: green;
+          }
+
+        }
+        .gab-actions {
+
+          text-transform: none;
+          text-decoration: none;
+          list-style-type: none;
+          float: right;
+
+          li {
+            display: inline;
+          }
+          li:first-child {
+
+            /*font-size: 16px;
+            font-weight: bold;*/
+            color: steelblue;
+          }
+          li:nth-child(2) {
+            padding-left: 10px;
+            padding-right: 10px;
+            color: #008000;
+          }
+        }
+      }
+    }
+
+  @media (min-width: 768px) {
+  #timeline-col-3 {
+
+    background-color: white;
+    min-height: 500px;
+    border-left: solid 1px #ebebeb;
+    #searchUser {
+      margin-top: 20px;
+      background-color: honeydew;
+    }
+    .user-content {
+
+      padding-top: 39px;
+
+    }
+    table {
+      tr {
+        margin-top: 10px;
+        border-bottom: solid #ebebeb 1px;
+        td:first-child {
+          padding-left: 20px;
+        }
+        td:nth-child(2) {
+          width: 200%;
+        }
+      }
+    }
+    .user-picture {
+      height: 50px;
+      width: 50px;
+      border: solid #E0E2E4 1px;
+
+      img {
+        height: 50px;
+        width: 50px;
+      }
+    }
+    .user-header {
 
       text-transform: none;
       text-decoration: none;
       list-style-type: none;
-      li
-      {
+      li {
         display: inline;
       }
-      li:first-child
-      {
+      li:first-child {
         font-size: 16px;
         font-weight: bold;
-        color:steelblue;
+        color: steelblue;
       }
-      li:nth-child(2)
-      {
-        padding-left: 10px;
-        padding-right: 10px;
-        color:green;
+      li:nth-child(2) {
+        //padding-left: 10px;
+        //padding-right: 10px;
+        color: green;
       }
-
-
 
     }
-    .gab-actions
-    {
-
+    .user-actions {
 
       text-transform: none;
       text-decoration: none;
       list-style-type: none;
       float: right;
 
-      li
-      {
-        display: inline;
+      li {
+        //display: inline;
       }
-      li:first-child
-      {
+      li:first-child {
 
         /*font-size: 16px;
         font-weight: bold;*/
-        color:steelblue;
+        color: steelblue;
       }
-      li:nth-child(2)
-      {
+      li:nth-child(2) {
         padding-left: 10px;
         padding-right: 10px;
         color: #008000;
       }
     }
+   }
   }
-}
-#timeline-col-3
-{
 
-  background-color: white;
-  min-height: 500px;
-  border-left:solid 1px #ebebeb;
-#searchUser
-{
-  margin-top: 20px;
-  background-color: honeydew;
-}
-  .user-content
-  {
+  @media (max-width:970px) {
+    #couverture_container {
 
-    padding-top: 39px;
+      height: 420px;
 
-  }
-  table
-  {
-    tr
-    {
-      margin-top: 10px;
-      border-bottom: solid #ebebeb 1px;
-      td:first-child
-      {
-        padding-left: 20px;
+      margin-bottom: 10px;
+
+      img {
+        height: 420px;
+        width: 1140px;
+        position: absolute;
+        z-index: 5;
+
+        max-width: 88%;
+        max-height: 40%;
       }
-      td:nth-child(2)
-      {
-        width: 200%;
+
+      .buttons_profile {
+        float: right;
+        margin-top: 29.2%;
+        width: 200px;
+
+        #addBackgroundButton {
+          z-index: 5;
+          position: relative;
+          float: right;
+          border-radius: 0;
+
+          // margin-top: 34.2%;
+        }
+        #addProfilePictureButton {
+          z-index: 5;
+          position: relative;
+          float: right;
+          border-radius: 0;
+          margin-bottom: 2%;
+
+        }
       }
     }
   }
-  .user-picture
-  {
-    height: 50px;
-    width: 50px;
-    border: solid #E0E2E4 1px;
-
-    img {
-      height: 50px;
-      width: 50px;
-    }
-  }
-  .user-header
-  {
-
-
-    text-transform: none;
-    text-decoration: none;
-    list-style-type: none;
-    li
-    {
-      display: inline;
-    }
-    li:first-child
-    {
-      font-size: 16px;
-      font-weight: bold;
-      color:steelblue;
-    }
-    li:nth-child(2)
-    {
-      //padding-left: 10px;
-      //padding-right: 10px;
-      color:green;
-    }
-
-
-
-  }
-  .user-actions
-  {
-
-
-    text-transform: none;
-    text-decoration: none;
-    list-style-type: none;
-    float: right;
-
-    li
-    {
-      //display: inline;
-    }
-    li:first-child
-    {
-
-      /*font-size: 16px;
-      font-weight: bold;*/
-      color:steelblue;
-    }
-    li:nth-child(2)
-    {
-      padding-left: 10px;
-      padding-right: 10px;
-      color: #008000;
-    }
-  }
-
-
-
-
-}
-#couverture_container
-{
-
-  height: 420px;
-
-  background-color: white;
-  margin-bottom: 10px;
-
-  img
-  {
-    height: 420px;
-    width:1140px;
-    position: absolute;
-    z-index:2;
-   /* max-width:100%;
-    max-height:100%;*/
-  }
-
-  .buttons_profile {
-    float: right;
-    margin-top: 29.2%;
-    width: 200px;
-
-    #addBackgroundButton {
-      z-index: 5;
-      position: relative;
-      float: right;
-      border-radius: 0;
-
-      // margin-top: 34.2%;
-    }
-    #addProfilePictureButton {
-      z-index: 5;
-      position: relative;
-      float: right;
-      border-radius: 0;
-      margin-bottom: 2%;
-
-    }
-  }
-}
