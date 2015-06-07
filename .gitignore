@@ -20,3 +20,10 @@ atlassian-ide-plugin.xml
 *.log
 *.min.js
 *.min.css
+
+#gulp
+*.min.js.map
+*.min.js
+SOURCE/main/webapp/app/js/lib/angular-mocks/angular-mocks.js
+SOURCE/main/webapp/app/js/lib/angular-route/angular-route.js
+SOURCE/main/webapp/app/js/lib/jquery/dist/jquery.js

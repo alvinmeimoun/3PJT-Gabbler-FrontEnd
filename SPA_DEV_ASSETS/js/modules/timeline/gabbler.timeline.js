@@ -86,7 +86,7 @@ angular.module('gabbler.timeline' , [
         var userID = $cookieStore.get("globals").currentUser.userID;
         var updated = 0;
             $scope.updated = 0;
-            if (typeof($location.search().userId) !== "undefined")
+            if (typeof($location.search().userId) !== 'undefined')
             {
                 optionalVisitedUserId = $location.search().userId;
                 $scope.disabledButtons = true;
@@ -152,13 +152,14 @@ angular.module('gabbler.timeline' , [
             $scope.disabledButtons = false;
 
         }
-        var gab = $scope.gab;
+
         var userID = $cookieStore.get("globals").currentUser.userID;
         var gabs = [];
 
 
         TimelineServices.GetMyGabs(optionalVisitedUserId,function(response) {
             $scope.gabs = response;
+            gabs = response;
         });
 
 
@@ -166,6 +167,7 @@ angular.module('gabbler.timeline' , [
                 $scope.$apply(function () {
                     TimelineServices.GetMyGabs(optionalVisitedUserId,function(response) {
                     $scope.gabs = response;
+                        gabs = response;
                 });
                 });
             }, 10000);
@@ -181,14 +183,17 @@ angular.module('gabbler.timeline' , [
 
         $scope.addGab = function ()
         {
-        TimelineServices.AddAGab($scope.gab,function(response)
+
+
+        TimelineServices.AddAGab($scope.sendGab,function(response)
         {
             if(response.id)
             {
                TimelineServices.GetMyGabs(function(response)
                 {
-                    gabs = response;
+
                     $scope.gabs = response;
+                    gabs = response;
                 });
             }
         });
@@ -199,7 +204,9 @@ angular.module('gabbler.timeline' , [
 
             gabs.splice(index, 1);
             //toastr.info("index is " + index + " gab " + gabId);
-            $scope.gabs = gabs;
+
+                $scope.gabs = gabs;
+
           TimelineServices.DeleteGab(gabId,function(response, status)
             {
                 //toastr.info(response + " " + status);
@@ -269,8 +276,18 @@ angular.module('gabbler.timeline' , [
                 {
                     var temp;
                     temp = response;
+                    for (var j in temp) {
+                        if (temp.hasOwnProperty(j)) {
+                            if (temp[j].id == $cookieStore.get("globals").currentUser.userID) {
+                                temp.splice(j,1);
+                                return;
+                            }
+                        }
+
+                    }
                     for (var i in temp) {
                         if (temp.hasOwnProperty(i)) {
+
                             if(temp[i].following === true){
                                 temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
                                 temp[i].btnFollow = {

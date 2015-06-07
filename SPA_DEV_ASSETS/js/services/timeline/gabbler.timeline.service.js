@@ -166,7 +166,7 @@ angular.module('gabbler.timeline.service', [
                                     else
                                     {
                                         formattedresponse[i].btnLike = {
-                                            state: states[0],
+                                            state: states[1],
                                             index: i
                                         };
                                     }
@@ -198,24 +198,28 @@ angular.module('gabbler.timeline.service', [
                     {
                         item.likers.forEach(function(liker)
                         {
-                            if(liker.userID !== userID)
-                            {
-                                if(likers.length > 1)
-                                {
-                                    likers += liker.displayName + ', ';
+
+
+                                item.isLikedByCurrentUser = false;
+                                if (likers.length > 1) {
+                                    item.countLikersMoreThanOne = true;
+                                    likers += ' ' + liker.displayName;
+
                                 }
-                                else
-                                {
+                                else {
+                                    item.countLikersMoreThanOne = false;
                                     likers = liker.displayName;
                                 }
-                            }
+
+                            /*}
                             else
                             {
                                 likers += " You ";
-                            }
+                            }*/
                         });
                         item.formattedLikers = likers;
                         item.isLiked = true;
+
                         likers = "";
 
                     }
@@ -289,11 +293,11 @@ angular.module('gabbler.timeline.service', [
                 {
                     userID = optionalVisitedUserId;
                 }
-                else
-                {
+
                     userID = $cookieStore.get("globals").currentUser.userID;
-                }
-                profilePicture = urlServer + '/user/picture/profile/background?userID='  + userID + '&timestamp=' + timestamp;
+
+                    profilePicture = urlServer + '/user/picture/profile/background?userID=' + userID + '&timestamp=' + timestamp;
+
                 return profilePicture;
             };
 
