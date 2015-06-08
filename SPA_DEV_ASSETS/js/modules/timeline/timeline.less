@@ -1,5 +1,4 @@
-#timeline-col-1
-{
+#timeline-col-1 {
   background-color: white;
   min-height: 25%;
   border-right: solid 1px #ebebeb;
@@ -8,45 +7,55 @@
   text-align: center;
   padding: 10px;
   border-radius: 0.5em;
-  h3{
+  h3 {
     font-size: 22px;
-
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.1em;
 
   }
-  h4{
+  h4 {
     font-size: 16px;
     /* margin-top: -60px; */
     color: gray;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.1em;
 
   }
-  #pictureProfile {
-    width: 150px;
-    height: 150px;
 
-    margin-top: -35%;
-    margin-left: 22%;
-
-    img
-    {
+  @media (min-width: 150px) {
+    #pictureProfile {
       width: 150px;
       height: 150px;
-      z-index: 6;
-      position: relative;
-      border: solid gray 2px;
 
+      margin-top: -35%;
+      margin-left: 22%;
+
+      img {
+        width: 150px;
+        height: 150px;
+        z-index: 6;
+        position: relative;
+        border: solid gray 2px;
+        max-height: 90%;
+        max-width: 90%;
+      }
+    }
+
+    h3 {
+
+    }
+
+    a {
 
     }
   }
-  h3
-  {
-
-  }
-  a
-  {
-
-  }
 }
-
 #timeline-col-2
 {
   min-height: 500px;
@@ -54,46 +63,49 @@
 
   input {
     width: 81%;
-   // background-color: aliceblue;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.1em;
   }
 
-  .gabslist
-  {
+  .gabslist {
     border-radius: 0.5em;
     background-color: white;
 
-    padding-top:10px;
+    padding-top: 10px;
     //border-radius:0.5em;
-    margin-top:10px;
+    margin-top: 10px;
 
-    .gab-item
-    {
+    .gab-item {
       margin-left: 10px;
-      margin-right:10px;
+      margin-right: 10px;
       border-bottom: solid 1px #E0E2E4;
 
-      .user-picture
-      {
-        height: 50px;
-        width: 50px;
-        border: solid #E0E2E4 1px;
-
-        img {
+      @media (min-width: 50px) {
+        .user-picture {
           height: 50px;
           width: 50px;
-        }
-      }
-      table
-      {
-        tr
-        {
-          td:first-child
-          {
-            padding-left: 20px;
+
+
+          img {
+            height: 50px;
+            width: 50px;
+            border: solid #E0E2E4 1px;
+            max-height: 90%;
+            max-width: 90%;
           }
-          td:nth-child(2)
-          {
-            width: 200%;
+        }
+
+        table {
+          tr {
+            td:first-child {
+              padding-left: 20px;
+            }
+            td:nth-child(2) {
+              width: 200%;
+            }
           }
         }
       }
@@ -187,6 +199,7 @@
     }
   }
 }
+
 #timeline-col-3
 {
 
@@ -221,21 +234,22 @@
       }
     }
   }
-  .user-picture
-  {
-    height: 50px;
-    width: 50px;
-    border: solid #E0E2E4 1px;
-
-    img {
+  @media (min-width: 50px) {
+    .user-picture {
       height: 50px;
       width: 50px;
+
+      img {
+        border: solid #E0E2E4 1px;
+        height: 50px;
+        width: 50px;
+        max-height: 90%;
+        max-width: 90%;
+      }
     }
   }
   .user-header
   {
-
-
     text-transform: none;
     text-decoration: none;
     list-style-type: none;
@@ -291,44 +305,48 @@
 
 
 }
-#couverture_container
-{
 
-  height: 420px;
+@media (max-width: 790px) {
+  #couverture_container {
 
-  background-color: white;
-  margin-bottom: 10px;
+    height: 300px;
+    //width: 1140px;
 
-  img
-  {
-    height: 420px;
-    width:1140px;
-    position: absolute;
-    z-index:2;
-   /* max-width:100%;
-    max-height:100%;*/
-  }
+    margin-bottom: 10px;
 
-  .buttons_profile {
-    float: right;
-    margin-top: 29.2%;
-    width: 200px;
 
-    #addBackgroundButton {
-      z-index: 5;
-      position: relative;
-      float: right;
-      border-radius: 0;
+    img {
+      height: 300px;
+      width: 1140px;
+      position: absolute;
+      z-index: 2;
+      max-width:88%;
+      max-height:50%;
+      border: solid #E0E2E4 1px;
 
-      // margin-top: 34.2%;
     }
-    #addProfilePictureButton {
-      z-index: 5;
-      position: relative;
-      float: right;
-      border-radius: 0;
-      margin-bottom: 2%;
 
+    .buttons_profile {
+      float: right;
+      margin-top: 18%;
+      width: 200px;
+
+      #addBackgroundButton {
+        z-index: 5;
+        position: relative;
+        float: right;
+        border-radius: 0;
+
+        // margin-top: 34.2%;
+      }
+      #addProfilePictureButton {
+        z-index: 5;
+        position: relative;
+        float: right;
+        border-radius: 0;
+        margin-bottom: 2%;
+
+      }
     }
   }
 }
