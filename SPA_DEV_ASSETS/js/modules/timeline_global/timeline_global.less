@@ -16,12 +16,22 @@
     font-size: 19px;
     margin-top: -60px;
     margin-left: 100px;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.1em;
   }
   h4{
     font-size: 14px;
     /* margin-top: -60px; */
     color: gray;
     margin-left: 100px;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.1em;
   }
 
     #pictureCover {
@@ -234,14 +244,30 @@
     }
   }
 }
-#timeline-global-col-3
-{
 
-  background-color: white;
-  min-height: 500px;
-  border-left:solid 1px #ebebeb;
-  border-radius: 0.5em;
+@media (min-width: 952px) {
+  .timelinecss {
+    margin-top: 15px;
+    padding-left:15px;
+    padding-right:15px;
+  }
 }
+
+@media (min-width: 1199px) {
+
+  .timelinecss {
+    margin-top: 15px;
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  #timeline-global-col-3 {
+
+    background-color: white;
+    min-height: 500px;
+    //border-left: solid 1px #ebebeb;
+    //border-radius: 0.5em;
+  }
 
   #couverture_container {
 
@@ -250,21 +276,29 @@
 
     img {
       height: 300px;
-      width: 1140px;
-      position: absolute;
+      width: 100%;
+      //position: absolute;
       z-index: 2;
-      border: solid #E0E2E4 1px;
+      //max-width: 88%;
+      //max-height: 50%;
+      //min-width: ;
+      border-right: solid 1px #ebebeb;
+      border-radius: 0.5em;
+      //border-radius: 0.5em 0.5em 0 0;
+
     }
 
     .buttons_profile {
       float: right;
-      margin-top: 18%;
+      margin-top: -90px;
       width: 200px;
+      margin-right: 1px;
 
       #addBackgroundButton {
         z-index: 5;
         position: relative;
         float: right;
+        max-width: 100%;
         border-radius: 0;
 
         // margin-top: 34.2%;
@@ -273,9 +307,11 @@
         z-index: 5;
         position: relative;
         float: right;
+        max-width: 100%;
         border-radius: 0;
         margin-bottom: 2%;
 
       }
     }
   }
+}

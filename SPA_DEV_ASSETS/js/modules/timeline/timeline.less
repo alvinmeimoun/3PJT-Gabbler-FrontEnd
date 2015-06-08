@@ -1,12 +1,14 @@
+
 #timeline-col-1 {
   background-color: white;
-  min-height: 25%;
+  min-height: 50%;
   border-right: solid 1px #ebebeb;
   //margin-right: 10px;
   //order-radius:0.5em;
   text-align: center;
   padding: 10px;
   border-radius: 0.5em;
+
   h3 {
     font-size: 22px;
     text-overflow: ellipsis;
@@ -28,13 +30,17 @@
 
   }
 
-  @media (min-width: 150px) {
+  a {
+
+  }
+
+  @media (min-width: 600px) {
     #pictureProfile {
       width: 150px;
       height: 150px;
 
-      margin-top: -35%;
-      margin-left: 22%;
+      margin-top: -162px;
+      margin-left: -6px;
 
       img {
         width: 150px;
@@ -46,16 +52,29 @@
         max-width: 90%;
       }
     }
+  }
 
-    h3 {
+  @media (max-width: 599px) {
+    #pictureProfile {
+      width: 125px;
+      height: 125px;
 
-    }
+      margin-top: -142px;
+      margin-left: -3px;
 
-    a {
-
+      img {
+        width: 150px;
+        height: 150px;
+        z-index: 6;
+        position: relative;
+        border: solid gray 2px;
+        max-height: 90%;
+        max-width: 90%;
+      }
     }
   }
 }
+
 #timeline-col-2
 {
   min-height: 500px;
@@ -301,40 +320,54 @@
     }
   }
 
-
-
-
 }
 
-@media (max-width: 790px) {
+@media (max-width: 599px) {
+  .timelinecss {
+    margin-top: 15px;
+    padding:0;
+  }
+
+  #timeline-col-2 input {
+    width: 100%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    margin-bottom: 5px;
+    line-height: 1.1em;
+  }
+
   #couverture_container {
 
-    height: 300px;
+    height: 200px;
     //width: 1140px;
 
     margin-bottom: 10px;
 
-
     img {
-      height: 300px;
-      width: 1140px;
-      position: absolute;
+      height: 200px;
+      width: 100%;
+      //position: absolute;
       z-index: 2;
-      max-width:88%;
-      max-height:50%;
-      border: solid #E0E2E4 1px;
+      //max-width:88%;
+      //max-height:50%;
+      border-right: solid 1px #ebebeb;
+      border-radius: 0.5em;
 
     }
 
     .buttons_profile {
       float: right;
-      margin-top: 18%;
+      margin-top: -72px;
       width: 200px;
+      margin-right: 1px;
 
       #addBackgroundButton {
         z-index: 5;
         position: relative;
         float: right;
+        max-width: 100%;
         border-radius: 0;
 
         // margin-top: 34.2%;
@@ -343,6 +376,7 @@
         z-index: 5;
         position: relative;
         float: right;
+        max-width: 100%;
         border-radius: 0;
         margin-bottom: 2%;
 
@@ -350,3 +384,72 @@
     }
   }
 }
+
+  @media (min-width: 600px) {
+
+    .timelinecss {
+      margin-top: 15px;
+      padding:0;
+    }
+
+    #timeline-col-2 input {
+      width: 100%;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 3.6em;
+      margin-bottom: 5px;
+      line-height: 1.1em;
+    }
+
+    .btn-warning {
+      width:100% !important;
+
+    }
+
+    #couverture_container {
+
+      height: 300px;
+      //width: 1140px;
+
+      margin-bottom: 10px;
+
+      img {
+        height: 300px;
+        width: 100%;
+        //position: absolute;
+        z-index: 2;
+        //max-width:88%;
+        //max-height:50%;
+        border-right: solid 1px #ebebeb;
+        border-radius: 0.5em;
+
+      }
+
+      .buttons_profile {
+        float: right;
+        margin-top: -90px;
+        width: 200px;
+        margin-right: 1px;
+
+        #addBackgroundButton {
+          z-index: 5;
+          position: relative;
+          float: right;
+          max-width: 100%;
+          border-radius: 0;
+
+          // margin-top: 34.2%;
+        }
+        #addProfilePictureButton {
+          z-index: 5;
+          position: relative;
+          float: right;
+          max-width: 100%;
+          border-radius: 0;
+          margin-bottom: 2%;
+
+        }
+      }
+    }
+  }
