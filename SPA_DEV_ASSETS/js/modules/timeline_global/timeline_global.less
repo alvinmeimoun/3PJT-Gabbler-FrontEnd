@@ -38,7 +38,7 @@
 
 
       img {
-        width: 284px;
+        width: 100%;
         height: 100px;
         border-radius: 0.5em 0.5em 0 0;
         //position: absolute;
@@ -113,7 +113,13 @@
   //margin-right: 10px;
 
   input {
-    width: 81%;
+    width: 100%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.1em;
+    margin-bottom: 10px;
   }
 
   .gabslist
@@ -123,6 +129,7 @@
     padding-top:10px;
     //border-radius:0.5em;
     margin-top:10px;
+    margin-bottom: 10px;
 
     .gab-item
     {
@@ -255,6 +262,9 @@
 
 @media (min-width: 1199px) {
 
+
+
+
   .timelinecss {
     margin-top: 15px;
     padding-left:15px;
@@ -313,5 +323,94 @@
 
       }
     }
+  }
+}
+
+@media (min-width: 1183px) {
+  #timeline-global-col-1
+  {
+    #pictureCover {
+
+
+      img {
+        width: 100%;
+        height: 130px;
+        border-radius: 0.5em 0.5em 0 0;
+        //position: absolute;
+
+        z-index: 2;
+      }
+    }
+  }
+}
+
+@media (min-width: 583px) {
+
+  #timeline-global-col-1
+  {
+    #pictureCover {
+
+
+      img {
+        width: 100%;
+        height: 110px;
+        border-radius: 0.5em 0.5em 0 0;
+        //position: absolute;
+
+        z-index: 2;
+      }
+    }
+  }
+
+  #timeline-global-col-3 {
+
+    background-color: white;
+    min-height: 100%;
+    margin-bottom: 20px;
+    border: solid 1px #ebebeb;
+    border-radius: 0.5em;
+    margin-top: 20px;
+  }
+
+}
+
+@media (max-width: 599px) {
+
+  #timeline-global-col-1
+  {
+    #pictureCover {
+
+
+      img {
+        width: 100%;
+        height: 130px;
+        border-radius: 0.5em 0.5em 0 0;
+        //position: absolute;
+
+        z-index: 2;
+      }
+    }
+  }
+
+  #timeline-global-col-3 {
+
+    background-color: white;
+    min-height: 100%;
+    margin-bottom: 20px;
+    border: solid 1px #ebebeb;
+    border-radius: 0.5em;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  #timeline-global-col-3 {
+
+    background-color: white;
+    min-height: 100%;
+    margin-bottom: 20px;
+    border: solid 1px #ebebeb;
+    border-radius: 0.5em;
+    margin-top: 0px;
   }
 }
