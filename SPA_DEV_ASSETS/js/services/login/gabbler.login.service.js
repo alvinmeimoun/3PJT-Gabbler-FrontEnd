@@ -20,6 +20,7 @@ angular.module('gabbler.login.service', [
                 var requestData = { "password": pwd,"username": username };
                 var url = ServerLink.GetBaseUrlFromServer() + '/login';
 
+                $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*'};
                     $http.post( url , requestData )
                     .success(function (response,status)
                     {
@@ -41,7 +42,10 @@ angular.module('gabbler.login.service', [
             service.Logout = function (callback) {
                 var requestData = {"token" : $cookieStore.get("globals").currentUser.token  };
                 var token = $cookieStore.get("globals").currentUser.token;
+
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+
+
                 var url = ServerLink.GetBaseUrlFromServer() + '/logout';
                 $http.get( url,requestData )
                     .success(function (response,status)
@@ -67,6 +71,7 @@ angular.module('gabbler.login.service', [
                     }
                 };
                $http.defaults.headers.common['Authorization'] = 'Basic ' + token; // jshint ignore:line
+
                $cookieStore.put('globals', $rootScope.globals);
 
             };

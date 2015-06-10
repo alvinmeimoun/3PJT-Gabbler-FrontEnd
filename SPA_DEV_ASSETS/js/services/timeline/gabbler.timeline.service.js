@@ -1,7 +1,8 @@
 /**
  * Created by Antonin on 21/02/2015.
  */
-var urlServer = 'http://localhost:8082/gabbler/api';
+var urlServer = //"http://tomcat_n1.gabbler.net:8082/gabbler/api";
+    'http://localhost:8082/gabbler/api';
 
 angular.module('gabbler.timeline.service', [
     'toastr',
@@ -33,6 +34,7 @@ angular.module('gabbler.timeline.service', [
                 {
                     userID = $cookieStore.get("globals").currentUser.userID;
                 }
+
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/user/get?userId=';
                 if(userID) {
@@ -58,6 +60,7 @@ angular.module('gabbler.timeline.service', [
                     "userId": userID,
                     "postDate": date
                 };
+
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Raw', 'sessionAuthToken': token};
                 var url = urlServer + '/gabs/publish';
                 $http.post(url,requestData)
@@ -75,6 +78,7 @@ angular.module('gabbler.timeline.service', [
             // Méthode permettant de supprimer un gab
             service.DeleteGab = function(gabId,callback) {
                 token = $cookieStore.get("globals").currentUser.token;
+
                 $http.defaults.headers.delete = {'sessionAuthToken': token};
                 var url = urlServer + '/gabs/delete?gabsId=';
 
@@ -93,20 +97,23 @@ angular.module('gabbler.timeline.service', [
             // Méthode permettant de récupérer les gabs d'un utilisateur
             service.GetMyGabs = function(optionalVisitedUserId,callback) {
                 var token = $cookieStore.get("globals").currentUser.token;
-                var userID = 0;
+
+                $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 if (optionalVisitedUserId !== 0)
                 {
+                  //  toastr.info("!= 0 " + userID);
                     userID = optionalVisitedUserId;
                 }
-                else
+                if (optionalVisitedUserId === 0)
                 {
+                    //toastr.info("!= 0 " + userID);
+                    //userID = 2;
                     userID = $cookieStore.get("globals").currentUser.userID;
                 }
 
                 var url = urlServer + '/gabs/timeline/user?userId=';
-                $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-
-                $http.get(url + userID + "&startIndex=0&count=20" )
+               var urlTotal = url + userID + "&startIndex=0&count=20";
+                $http.get(urlTotal)
                     .success(function (response,status)
                     {
                         var formattedresponse = service.AddDatasToGabs(response);
@@ -123,6 +130,7 @@ angular.module('gabbler.timeline.service', [
 
             // Méthode permettant de récupérer la timeline global
             service.GetGabsTimelineGlobal = function(callback) {
+
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/gabs/timeline?startIndex=0&count=20';
                 $http.get(url)
@@ -268,6 +276,7 @@ angular.module('gabbler.timeline.service', [
             service.uploadPictureBackground = function(file,callback){
                 token = $cookieStore.get("globals").currentUser.token;
                 //AuthenticationService.GetCredentials().currentUser.token;
+
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/user/picture/profile/background';
 
@@ -323,6 +332,7 @@ angular.module('gabbler.timeline.service', [
 
             // service permettant de Follow un user
             service.FollowUser = function(followedUserId,callback) {
+
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/user/follow?userId=';
                 $http.put(url + followedUserId)
@@ -338,6 +348,7 @@ angular.module('gabbler.timeline.service', [
 
             // service permettant de Follow un user
             service.UnFollowUser = function(followedUserId,callback) {
+
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/user/unfollow?userId=';
                 $http.put(url + followedUserId)
@@ -353,6 +364,7 @@ angular.module('gabbler.timeline.service', [
 
             // service permettant de Like un gab
             service.LikeGab = function(gabId, callback) {
+
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 var url = urlServer + '/gabs/like?gabsId=';
                 $http.put(url + gabId)
@@ -369,6 +381,7 @@ angular.module('gabbler.timeline.service', [
             // service permettant de dislike un gab
             service.DislikeGab = function(gabId, callback)  {
                 var url = urlServer + '/gabs/unlike?gabsId=';
+
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
 
                 $http.put(url + gabId)

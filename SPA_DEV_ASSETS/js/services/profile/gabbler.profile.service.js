@@ -20,6 +20,7 @@ angular.module('gabbler.profile.service', [
                     token = $cookieStore.get("globals").currentUser.token;
                     userID = $cookieStore.get("globals").currentUser.userID;
                     //AuthenticationService.GetCredentials().currentUser.token;
+
                     $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                     if( userID !== "0") {
                         var url = ServerLink.GetBaseUrlFromServer() + '/user/get?userId=';

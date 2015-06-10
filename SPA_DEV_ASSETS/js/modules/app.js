@@ -23,8 +23,9 @@ var gabblerApp = angular.module('gabblerApp', [
 
 ]);
 
-gabblerApp.config(['$routeProvider',
-        function($routeProvider) {
+gabblerApp.config(['$routeProvider', '$httpProvider',
+
+        function($routeProvider, $httpProvider) {
             $routeProvider.
                 when('/', {
                     templateUrl: '/main/webapp/app/js/modules/index/home.html',
@@ -49,6 +50,8 @@ gabblerApp.config(['$routeProvider',
                     controller: 'profileCtrl'
 
                 });
+            $httpProvider.defaults.useXDomain = true;
+            delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
         }])
     .run(function($http, $rootScope) {

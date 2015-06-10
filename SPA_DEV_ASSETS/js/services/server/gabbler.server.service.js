@@ -16,6 +16,8 @@ angular.module('gabbler.server.service', [
 
         service.GetBaseUrlFromServer = function()
         {
+            //urlBase = "http://tomcat_n1.gabbler.net:8082/gabbler/api";
+
             urlBase = "http://localhost:8082/gabbler/api";
             return urlBase;
         };

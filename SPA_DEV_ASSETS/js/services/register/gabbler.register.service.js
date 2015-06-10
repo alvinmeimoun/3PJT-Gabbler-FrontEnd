@@ -28,6 +28,8 @@ angular.module('gabbler.register.service', [
                     "creationDate": date
                 };
                 var url = ServerLink.GetBaseUrlFromServer() + '/user/subscribe';
+
+                $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                    $http.post(url, requestData )
                        .success(function (response,status)
                        {

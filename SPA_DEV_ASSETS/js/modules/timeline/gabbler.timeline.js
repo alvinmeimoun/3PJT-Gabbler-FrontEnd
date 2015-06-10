@@ -189,7 +189,9 @@ angular.module('gabbler.timeline' , [
         {
             if(response.id)
             {
-               TimelineServices.GetMyGabs(function(response)
+                //optionalVisitedUserId = 0;
+
+               TimelineServices.GetMyGabs(optionalVisitedUserId,function(response)
                 {
 
                     $scope.gabs = response;
@@ -223,7 +225,7 @@ angular.module('gabbler.timeline' , [
                     if (status === 200) {
                         $scope.gabs[index].btnLike.state = $scope.states[1];
                         //$scope.result[index].btnState = $scope.states[1];
-                        TimelineServices.GetMyGabs(function (response) {
+                        TimelineServices.GetMyGabs(optionalVisitedUserId,function (response) {
 
                             gabs = response;
                             $scope.gabs = gabs;
@@ -241,7 +243,7 @@ angular.module('gabbler.timeline' , [
                     if (status === 200) {
                         $scope.gabs[index].btnLike.state = $scope.states[0];
                         // $scope.btnState = $scope.states[0];
-                        TimelineServices.GetMyGabs(function (response) {
+                        TimelineServices.GetMyGabs(optionalVisitedUserId,function (response) {
                             gabs = response;
                             $scope.gabs = gabs;
                         });

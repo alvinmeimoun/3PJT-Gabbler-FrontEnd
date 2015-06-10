@@ -74,5 +74,6 @@
     "MODAL_PROFILE_TITLE" : "Please Select your Profile Picture",
     "MODAL_BACKGROUND_ADD" : "Add Picture",
     "MODAL_BACKGROUND_UPLOAD" : "Upload",
-    "MODAL_CLOSE" : "Close"
+    "MODAL_CLOSE" : "Close",
+    "TITLE_HOME" : "Gabbler - Gab Your Mine"
 }
