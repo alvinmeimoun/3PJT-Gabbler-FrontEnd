@@ -81,11 +81,11 @@ angular.module('gabbler.timeline' , [
     .controller('profileOverviewCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout',
         function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout){
 
-    var user = null;
+
+        var user = null;
         $scope.token = $cookieStore.get("globals").currentUser.token;
         var userID = $cookieStore.get("globals").currentUser.userID;
-        var updated = 0;
-            $scope.updated = 0;
+
             if (typeof($location.search().userId) !== 'undefined')
             {
                 optionalVisitedUserId = $location.search().userId;
@@ -96,25 +96,34 @@ angular.module('gabbler.timeline' , [
                 optionalVisitedUserId = 0;
                 $scope.disabledButtons = false;
             }
-       TimelineServices.GetProfilePreview(optionalVisitedUserId,function(response)
-        {
-            if (response) {
-             //   AuthenticationService.SetCredentials($scope.username, response.token);
-                //$scope.error = response.token;
-                user = response;
-                //$scope.error = $cookieStore.get("globals");
-                // $route.reload();
-                $scope.displayname = response.displayName;
-                $scope.firstname = response.firstname;
-                $scope.lastname = response.lastname;
-                $scope.nickname = response.nickname;
-                $scope.result = user.data;
-                $scope.profilePicture = TimelineServices.setProfilePicture();
-            } else {
-                console.log("Erreur");
 
-            }
-        });
+       $scope.getProfile = function() {
+           TimelineServices.GetProfilePreview(optionalVisitedUserId, function (response) {
+               if (response) {
+                   //   AuthenticationService.SetCredentials($scope.username, response.token);
+                   //$scope.error = response.token;
+                   user = response;
+                   //$scope.error = $cookieStore.get("globals");
+                   // $route.reload();
+                   $scope.displayname = response.displayName;
+                   $scope.firstname = response.firstname;
+                   $scope.lastname = response.lastname;
+                   $scope.nickname = response.nickname;
+                   $scope.result = user.data;
+                   $scope.profilePicture = TimelineServices.setProfilePicture();
+               } else {
+                   console.log("Erreur");
+
+               }
+           });
+       };
+
+            $scope.getProfile();
+            setInterval(function () {
+                $scope.$apply(function () {
+                    $scope.getProfile();
+                });
+            },10000);
 
             var file = "";
         $scope.uploadFiles = function(){
@@ -135,10 +144,6 @@ angular.module('gabbler.timeline' , [
 
 
 
-        if(AuthenticationService.GetCredentials() === "undefined" )
-        {
-            $location.path('/');
-        }
 
         if (typeof($location.search().userId) !== "undefined")
         {
@@ -331,8 +336,6 @@ angular.module('gabbler.timeline' , [
                     if(status === 200 )
                     {
                         $scope.result[index].btnFollow.state = $scope.states[1];
-                        //$scope.result[index].btnState = $scope.states[1];
-                        //toastr.info("user followed"  + index + " " + userId);
                     }
                     else
                     {
@@ -348,8 +351,6 @@ angular.module('gabbler.timeline' , [
                     if(status === 200 )
                     {
                         $scope.result[index].btnFollow.state = $scope.states[0];
-                       // $scope.btnState = $scope.states[0];
-                        //toastr.info("user unfollowed"  + index + " " + userId);
                     }
                     else
                     {

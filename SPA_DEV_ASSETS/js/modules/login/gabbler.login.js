@@ -22,12 +22,9 @@ angular.module('gabbler.login', [
 
                         //$scope.error = response.token;
                         $scope.dataLoading = false;
-                        //$scope.error = $cookieStore.get("globals");
-                       // $route.reload();
-                        //$scope.$apply();
-                        //AuthenticationService.SetCredentials($scope.username, response.token , response.userID);
-                        //toastr.info($cookieStore.get("globals").currentUser.userID);
-                       $location.path('/timeline/user');
+
+
+                       $location.path('/timeline');
                         //toastr.success('You have been connected ! ');
                     } else {
 

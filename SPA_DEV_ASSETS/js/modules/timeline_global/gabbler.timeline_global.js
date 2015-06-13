@@ -28,10 +28,12 @@ angular.module('gabbler.timeline.global' , [
     .controller('profileOverviewGlobalCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout',
         function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout){
 
+
+
             var user = null;
             $scope.token = $cookieStore.get("globals").currentUser.token;
             var userID = $cookieStore.get("globals").currentUser.userID;
-            var updated = 0;
+
 
             TimelineServices.GetMyGabs(0,function(response) {
 
@@ -63,7 +65,7 @@ angular.module('gabbler.timeline.global' , [
         }])
 
 
-    .controller('timelineGlobalCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope){
+    .controller('timelineGlobalCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope, AuthenticationService){
 
         var gab = $scope.gab;
         var userID = $cookieStore.get("globals").currentUser.userID;
@@ -155,28 +157,28 @@ angular.module('gabbler.timeline.global' , [
         };
     })
 
-    .controller('suggestionsGlobalCtrl', function($scope,$cookieStore, $location , ServerLink, TimelineServices){
+    .controller('suggestionsGlobalCtrl', function($scope,$cookieStore, $location , ServerLink, TimelineServices , AuthenticationService, toastr){
 
         $scope.states = ['Follow', 'UnFollow'];
-        $scope.search = " ";
 
-            TimelineServices.SearchUser($scope.search, function(response, status)
-            {
-                if(status === 200)
-                {
-                    var temp;
-                    temp = response;
-                    for (var i in temp) {
-                        if (temp.hasOwnProperty(i)) {
-                            if(temp[i].following === true){
-                                temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
-                                temp[i].btnFollow = {
-                                    state: $scope.states[1],
-                                    index: i
+            $scope.getRecommended = function() {
+                TimelineServices.GetRecommendedUsers(function (response, status) {
+                    if (status === 200) {
+                        var temp;
+                        temp = response;
+                        for (var j in temp) {
+                            if (temp.hasOwnProperty(j)) {
+                                if (temp[j].id == AuthenticationService.GetCredentials().currentUser.userID) {
+                                    temp.splice(j, 1);
 
-                                };
+                                }
                             }
-                            else {
+                        }
+
+                        for (var i in temp) {
+                            if (temp.hasOwnProperty(i)) {
+
+
                                 temp[i].pictureProfile = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + temp[i].id;
                                 temp[i].btnFollow = {
                                     state: $scope.states[0],
@@ -185,17 +187,15 @@ angular.module('gabbler.timeline.global' , [
                                 };
                             }
                         }
+                        $scope.result = temp;
                     }
-                    $scope.result = temp;
+                    else {
+                        $scope.result = {};
+                    }
+                });
+            };
 
-                    //$scope.btnState = $scope.states[0];
-                }
-                else
-                {
-                    $scope.result = {};
-                }
-            });
-
+        $scope.getRecommended();
 
         $scope.followOrUnfollowUser = function(index,userId) {
 
@@ -209,8 +209,7 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.result[index].btnFollow.state = $scope.states[1];
-                        //$scope.result[index].btnState = $scope.states[1];
-                        //toastr.info("user followed"  + index + " " + userId);
+                        $scope.getRecommended();
                     }
                     else
                     {
@@ -226,8 +225,8 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.result[index].btnFollow.state = $scope.states[0];
-                        // $scope.btnState = $scope.states[0];
-                        toastr.info("user unfollowed"  + index + " " + userId);
+                        $scope.getRecommended();
+
                     }
                     else
                     {

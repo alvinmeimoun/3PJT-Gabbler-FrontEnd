@@ -12,11 +12,17 @@ angular.module('gabbler.timeline.service', [
 
 
 
-.factory('TimelineServices',  ['$http', '$cookieStore', '$rootScope', '$timeout', 'ServerLink', 'toastr',
+.factory('TimelineServices',  ['$http' , '$cookieStore', '$rootScope', '$timeout', 'ServerLink', 'toastr',
         function ( $http, $cookieStore, AuthenticationService, $rootScope, $timeout, ServerLink, toastr) {
             var service = {};
             var token;
             var userID;
+            //toastr.info("1", typeof($cookieStore.get("globals")));
+            // On vérifie que l'utilisateur est authentifié, sinon on le redirige vers la page d'accueil
+            /*if(typeof($cookieStore.get("globals")) === "undefined") {
+                //toastr.info("2", $cookieStore.get("globals").currentUser);
+                $location.path('/');
+            }*/
             // On récupère l'utilisateur en ligne
             token = $cookieStore.get("globals").currentUser.token;
             userID = $cookieStore.get("globals").currentUser.userID;
@@ -327,6 +333,24 @@ angular.module('gabbler.timeline.service', [
                             callback(response,status);
                         });
                 }
+
+            };
+            // Service permettant de récupérer la liste des utilisateurs recommandés
+            service.GetRecommendedUsers = function(callback) {
+
+                $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
+                var url = urlServer + '/user/recommended';
+
+                    $http.get(url)
+                        .success(function(response,status)
+                        {
+                            callback(response,status);
+                        })
+                        .error(function(response, status)
+                        {
+                            callback(response,status);
+                        });
+
 
             };
 
