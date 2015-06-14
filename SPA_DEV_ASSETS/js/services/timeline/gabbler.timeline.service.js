@@ -1,10 +1,11 @@
 /**
  * Created by Antonin on 21/02/2015.
  */
-var urlServer = //"http://tomcat_n1.gabbler.net:8082/gabbler/api";
-    'http://localhost:8082/gabbler/api';
+/*var urlServer = //"http://tomcat_n1.gabbler.net:8082/gabbler/api";
+    'http://localhost:8082/gabbler/api';*/
 
 angular.module('gabbler.timeline.service', [
+    'ngRoute',
     'toastr',
     'gabbler.server.service',
     'gabbler.login.service'
@@ -12,21 +13,22 @@ angular.module('gabbler.timeline.service', [
 
 
 
-.factory('TimelineServices',  ['$http' , '$cookieStore', '$rootScope', '$timeout', 'ServerLink', 'toastr',
-        function ( $http, $cookieStore, AuthenticationService, $rootScope, $timeout, ServerLink, toastr) {
+.factory('TimelineServices',  ['$http', '$cookieStore', '$rootScope', '$timeout', 'ServerLink', 'toastr', '$location', 'AuthenticationService',
+        function ( $http, $cookieStore,$rootScope, $timeout, ServerLink, toastr , $location ,AuthenticationService) {
             var service = {};
             var token;
             var userID;
-            //toastr.info("1", typeof($cookieStore.get("globals")));
-            // On vérifie que l'utilisateur est authentifié, sinon on le redirige vers la page d'accueil
-            /*if(typeof($cookieStore.get("globals")) === "undefined") {
-                //toastr.info("2", $cookieStore.get("globals").currentUser);
-                $location.path('/');
-            }*/
-            // On récupère l'utilisateur en ligne
-            token = $cookieStore.get("globals").currentUser.token;
-            userID = $cookieStore.get("globals").currentUser.userID;
 
+            // On vérifie que l'utilisateur est authentifié, sinon on le redirige vers la page d'accueil
+            if(typeof($cookieStore.get("globals")) === "undefined") {
+
+               $location.path('/');
+            }
+            else {
+                // On récupère l'utilisateur en ligne
+                token = $cookieStore.get("globals").currentUser.token;
+                userID = $cookieStore.get("globals").currentUser.userID;
+            }
             // Méthode permettant de récupérer les données du profil utilisateur pour un affichage minimal
             service.GetProfilePreview = function(optionalVisitedUserId,callback) {
                 //var test = urlServer;
@@ -42,7 +44,7 @@ angular.module('gabbler.timeline.service', [
                 }
 
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/get?userId=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/get?userId=';
                 if(userID) {
                     $http.get( url + userID)
                         .success(function (response, status) {
@@ -68,7 +70,7 @@ angular.module('gabbler.timeline.service', [
                 };
 
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': 'Raw', 'sessionAuthToken': token};
-                var url = urlServer + '/gabs/publish';
+                var url = ServerLink.GetBaseUrlFromServer() + '/gabs/publish';
                 $http.post(url,requestData)
                     .success(function(response,status)
                 {
@@ -86,7 +88,7 @@ angular.module('gabbler.timeline.service', [
                 token = $cookieStore.get("globals").currentUser.token;
 
                 $http.defaults.headers.delete = {'sessionAuthToken': token};
-                var url = urlServer + '/gabs/delete?gabsId=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/gabs/delete?gabsId=';
 
                 $http.delete(url + gabId)
                     .success(function(response,status)
@@ -107,18 +109,15 @@ angular.module('gabbler.timeline.service', [
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
                 if (optionalVisitedUserId !== 0)
                 {
-                  //  toastr.info("!= 0 " + userID);
                     userID = optionalVisitedUserId;
                 }
                 if (optionalVisitedUserId === 0)
                 {
-                    //toastr.info("!= 0 " + userID);
-                    //userID = 2;
                     userID = $cookieStore.get("globals").currentUser.userID;
                 }
 
-                var url = urlServer + '/gabs/timeline/user?userId=';
-               var urlTotal = url + userID + "&startIndex=0&count=20";
+                var url = ServerLink.GetBaseUrlFromServer() + '/gabs/timeline/user?userId=';
+               var urlTotal = url + userID + "&startIndex=0&count=50";
                 $http.get(urlTotal)
                     .success(function (response,status)
                     {
@@ -138,7 +137,7 @@ angular.module('gabbler.timeline.service', [
             service.GetGabsTimelineGlobal = function(callback) {
 
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/gabs/timeline?startIndex=0&count=20';
+                var url = ServerLink.GetBaseUrlFromServer() + '/gabs/timeline?startIndex=0&count=50';
                 $http.get(url)
                     .success(function(response, status)
                     {
@@ -161,7 +160,7 @@ angular.module('gabbler.timeline.service', [
                 for (var i in formattedresponse) {
                     if (formattedresponse.hasOwnProperty(i)) {
                         // Permet de générer la miniature et le bouton like ou dislike
-                        var url = urlServer + '/user/picture/profile?userID=';
+                        var url = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=';
                         formattedresponse[i].pictureProfile = url + formattedresponse[i].userId;
                         var likers = formattedresponse[i].likers;
                         if (likers.length !== 0 )
@@ -224,12 +223,6 @@ angular.module('gabbler.timeline.service', [
                                     item.countLikersMoreThanOne = false;
                                     likers = liker.displayName;
                                 }
-
-                            /*}
-                            else
-                            {
-                                likers += " You ";
-                            }*/
                         });
                         item.formattedLikers = likers;
                         item.isLiked = true;
@@ -250,7 +243,7 @@ angular.module('gabbler.timeline.service', [
                 token = $cookieStore.get("globals").currentUser.token;
 
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/picture/profile';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile';
 
                 var image = new FormData();
                 image.append('image', file);
@@ -272,8 +265,8 @@ angular.module('gabbler.timeline.service', [
                 var timestamp;
 
                 timestamp =  new Date().getTime();
-                var url = urlServer + '/user/picture/profile?userID=';
-                profilePicture =   urlServer + '/user/picture/profile?userID=' + userID + '&timestamp=' + timestamp;
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=';
+                profilePicture =   ServerLink.GetBaseUrlFromServer() + '/user/picture/profile?userID=' + userID + '&timestamp=' + timestamp;
 
                 return profilePicture;
             };
@@ -284,7 +277,7 @@ angular.module('gabbler.timeline.service', [
                 //AuthenticationService.GetCredentials().currentUser.token;
 
                 $http.defaults.headers.post = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/picture/profile/background';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile/background';
 
                 var image = new FormData();
                 image.append('image', file);
@@ -311,7 +304,7 @@ angular.module('gabbler.timeline.service', [
 
                     userID = $cookieStore.get("globals").currentUser.userID;
 
-                    profilePicture = urlServer + '/user/picture/profile/background?userID=' + userID + '&timestamp=' + timestamp;
+                    profilePicture = ServerLink.GetBaseUrlFromServer() + '/user/picture/profile/background?userID=' + userID + '&timestamp=' + timestamp;
 
                 return profilePicture;
             };
@@ -320,7 +313,7 @@ angular.module('gabbler.timeline.service', [
             service.SearchUser = function(search, callback) {
 
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/search?req=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/search?req=';
                 if (search !== "")
                 {
                     $http.get(url + search)
@@ -339,7 +332,7 @@ angular.module('gabbler.timeline.service', [
             service.GetRecommendedUsers = function(callback) {
 
                 $http.defaults.headers.get = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/recommended';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/recommended';
 
                     $http.get(url)
                         .success(function(response,status)
@@ -358,7 +351,7 @@ angular.module('gabbler.timeline.service', [
             service.FollowUser = function(followedUserId,callback) {
 
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/follow?userId=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/follow?userId=';
                 $http.put(url + followedUserId)
                     .success(function(response,status)
                     {
@@ -374,7 +367,7 @@ angular.module('gabbler.timeline.service', [
             service.UnFollowUser = function(followedUserId,callback) {
 
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/user/unfollow?userId=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/user/unfollow?userId=';
                 $http.put(url + followedUserId)
                     .success(function(response,status)
                     {
@@ -390,7 +383,7 @@ angular.module('gabbler.timeline.service', [
             service.LikeGab = function(gabId, callback) {
 
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
-                var url = urlServer + '/gabs/like?gabsId=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/gabs/like?gabsId=';
                 $http.put(url + gabId)
                     .success(function(response,status)
                     {
@@ -404,7 +397,7 @@ angular.module('gabbler.timeline.service', [
 
             // service permettant de dislike un gab
             service.DislikeGab = function(gabId, callback)  {
-                var url = urlServer + '/gabs/unlike?gabsId=';
+                var url = ServerLink.GetBaseUrlFromServer() + '/gabs/unlike?gabsId=';
 
                 $http.defaults.headers.put = {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*' , 'Access-Control-Allow-Headers': '*', 'sessionAuthToken': token};
 
@@ -421,3 +414,4 @@ angular.module('gabbler.timeline.service', [
 
             return service;
         }]);
+

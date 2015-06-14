@@ -25,15 +25,15 @@ angular.module('gabbler.timeline.global' , [
         };
     }])
 // Controller gérant la partie profil de l'utilisateur
-    .controller('profileOverviewGlobalCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout',
-        function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout){
+    .controller('profileOverviewGlobalCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout', '$route',
+        function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout, $route){
 
+            if(typeof($cookieStore.get("globals")) !== "undefined") {
+                var user = null;
+                $scope.token = $cookieStore.get("globals").currentUser.token;
+                var userID = $cookieStore.get("globals").currentUser.userID;
 
-
-            var user = null;
-            $scope.token = $cookieStore.get("globals").currentUser.token;
-            var userID = $cookieStore.get("globals").currentUser.userID;
-
+            }
 
             TimelineServices.GetMyGabs(0,function(response) {
 
@@ -67,12 +67,8 @@ angular.module('gabbler.timeline.global' , [
 
     .controller('timelineGlobalCtrl', function($scope,$cookieStore, $location,TimelineServices,toastr, $rootScope, AuthenticationService){
 
-        var gab = $scope.gab;
-        var userID = $cookieStore.get("globals").currentUser.userID;
         var gabs = [];
         $scope.states = ['Like', 'Unlike'];
-
-
 
         TimelineServices.GetGabsTimelineGlobal(function(response) {
             //$scope.gabs = response;
@@ -84,8 +80,6 @@ angular.module('gabbler.timeline.global' , [
         // une timeline à jour
         setInterval(function () {
             $scope.$apply(function () {
-
-
                 TimelineServices.GetGabsTimelineGlobal(function(response) {
                     $scope.gabs = response;
                 });
@@ -98,7 +92,9 @@ angular.module('gabbler.timeline.global' , [
             {
                 if(response.id)
                 {
+                    $scope.gab = '';
                     TimelineServices.GetGabsTimelineGlobal(function(response) {
+                        $scope.gabs = [];
                         $scope.gabs = response;
                      });
                 }
@@ -161,7 +157,7 @@ angular.module('gabbler.timeline.global' , [
 
         $scope.states = ['Follow', 'UnFollow'];
 
-            $scope.getRecommended = function() {
+        $scope.getRecommended = function() {
                 TimelineServices.GetRecommendedUsers(function (response, status) {
                     if (status === 200) {
                         var temp;
@@ -199,7 +195,7 @@ angular.module('gabbler.timeline.global' , [
 
         $scope.followOrUnfollowUser = function(index,userId) {
 
-            toastr.info($scope.result[index].btnFollow.state);
+          //  toastr.info($scope.result[index].btnFollow.state);
             //toastr.info( $scope.result[index].btnState);
             //  var users = $scope.result;
             if($scope.result[index].btnFollow.state === $scope.states[0])

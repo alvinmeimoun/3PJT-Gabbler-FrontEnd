@@ -32,7 +32,7 @@
    <!--<pre> {{ gabs | json }}</pre>-->
     <div class="gabslist">
 
-        <div class="gab-item" data-ng-repeat="gab in gabs | orderBy:'gab.postDate':reverse">
+        <div class="gab-item" data-ng-repeat="gab in gabs ">
             <!--<div class="img-circle"><img src="/main/img/twitter-happy-2640049b-215351.jpg"></div>-->
             <table>
                 <tr>
@@ -69,6 +69,7 @@
 
         </div>
     </div>
+
    <!-- <pre> {{ gabs | json }} </pre>-->
 </div>
 <div class="col-md-3" id="timeline-global-col-3" data-ng-controller="suggestionsGlobalCtrl">
@@ -93,13 +94,14 @@
                         </ul>
 
                         <ul class="user-actions">
-                            <li><button data-ng-class="{'btn btn-info':user.btnFollow.state == 'Follow','btn btn-success':user.btnFollow.state == 'UnFollow'}" data-ng-model="btnFollow"  data-ng-click="followOrUnfollowUser($index, user.id)">{{user.btnFollow.state}}</button></li>
+                            <li><button data-ng-class="{'btn btn-primary':user.btnFollow.state == 'Follow','btn btn-success':user.btnFollow.state == 'UnFollow'}" data-ng-model="btnFollow"  data-ng-click="followOrUnfollowUser($index, user.id)"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> {{user.btnFollow.state}}</button></li>
                         </ul>
 
                     </div>
                 </td>
             </tr>
         </table>
+
     </div>
 
 </div>

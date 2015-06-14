@@ -80,7 +80,10 @@ angular.module('gabbler.timeline' , [
     // Controller gérant la partie profil de l'utilisateur
     .controller('profileOverviewCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout',
         function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout){
+            if(typeof($cookieStore.get("globals")) === "undefined") {
 
+                $location.path("/");
+            }
 
         var user = null;
         $scope.token = $cookieStore.get("globals").currentUser.token;
@@ -149,7 +152,6 @@ angular.module('gabbler.timeline' , [
         {
             optionalVisitedUserId = $location.search().userId;
             $scope.disabledButtons = true;
-
         }
         else
         {
@@ -186,26 +188,20 @@ angular.module('gabbler.timeline' , [
             });
 
 
-        $scope.addGab = function ()
-        {
-
-
+        $scope.addGab = function () {
         TimelineServices.AddAGab($scope.sendGab,function(response)
         {
             if(response.id)
             {
-                //optionalVisitedUserId = 0;
 
+               $scope.sendGab = '';
                TimelineServices.GetMyGabs(optionalVisitedUserId,function(response)
                 {
-
                     $scope.gabs = response;
                     gabs = response;
                 });
             }
         });
-
-
         };
         $scope.deleteGab = function (index,gabId) {
 
@@ -262,13 +258,6 @@ angular.module('gabbler.timeline' , [
             }
 
         };
-
-
-
-
-
-
-
     })
 
     .controller('suggestionsCtrl', function($scope,$cookieStore, $location , TimelineServices, toastr, ServerLink){

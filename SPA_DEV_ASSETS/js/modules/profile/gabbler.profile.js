@@ -21,10 +21,10 @@ angular.module('gabbler.profile',[
 
             $scope.updateProfile = function()
             {
-                ProfileService.UpdateUserDatas($scope.firstname,$scope.lastname,$scope.username,$scope.displayname,$scope.email, $scope.birthdate, function(response)
+                ProfileService.UpdateUserDatas($scope.firstname,$scope.lastname,$scope.username,$scope.displayname,$scope.email, $scope.birthdate, function(response, status)
                 {
 
-                    if (response)
+                    if (status == 200)
                     {
                         toastr.success('Your profile has been updated successfully !');
                         $scope.result = response;
@@ -42,15 +42,15 @@ angular.module('gabbler.profile',[
 
             $scope.updatePassword = function()
             {
-                ProfileService.UpdatePassword($scope.oldPassword,$scope.newPassword, function(response)
+                ProfileService.UpdatePassword($scope.oldPassword,$scope.newPassword, function(response, status)
                 {
-                    if(response.success)
+                    if(status == 200)
                     {
                         toastr.info("Password has been successfully updated !");
                     }
-                    else if(response.error)
+                    else
                     {
-                        toastr.error("Error during update of your password", "Please try again later");
+                        toastr.error("Error during update of your password", "Please verify your Old and New Password or try again later");
                     }
                 });
             };
