@@ -188,22 +188,7 @@ angular.module('gabbler.timeline.service', [
                                        // continue;
 
                                     }
-                                    /*else
-                                    if (likers[j].userID == userID && likers.length > 1)
-                                    {
-                                        formattedresponse[i].btnLike = {
-                                            state: states[1],
-                                            index: i
-                                        };
-                                    }*/
-                                   /* else
-                                    {
-                                        formattedresponse[i].btnLike = {
-                                            state: states[0],
-                                            index: i
-                                        };
-                                        continue;
-                                    }*/
+
                                 }
                             }
                         }

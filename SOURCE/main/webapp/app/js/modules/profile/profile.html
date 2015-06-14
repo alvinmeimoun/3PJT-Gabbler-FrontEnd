@@ -38,10 +38,10 @@
                     <div data-ng-show="mustShow" style="">
 
 
-                        <input type="text" name="oldPassword" class="form-control" data-ng-model="oldPassword" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_PASSWORD' | translate }}"  />
+                        <input type="password" name="oldPassword" class="form-control" data-ng-model="oldPassword" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_PASSWORD' | translate }}"  />
                         <span data-ng-show="form.oldPassword.$dirty && form.oldPassword.$error.required" class="help-block">old Password is required</span>
 
-                        <input type="text" name="newPassword" class="form-control" data-ng-model="newPassword" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_NEW_PASSWORD' | translate }}"  />
+                        <input type="password" name="newPassword" class="form-control" data-ng-model="newPassword" placeholder="{{ 'SIGNIN_FIELD_PLACEHOLDER_NEW_PASSWORD' | translate }}"  />
                         <span data-ng-show="form.newPassword.$dirty && form.newPassword.$error.required" class="help-block">new Password is required</span>
 
                         <button type="submit" disabled data-ng-disabled="form.$invalid || dataLoading" data-ng-click="updatePassword()" class="btn btn-lg btn-danger btn-block">{{ 'PROFILE_UPDATE_PWD' | translate }}</button>

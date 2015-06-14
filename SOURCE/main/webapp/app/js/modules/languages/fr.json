@@ -86,5 +86,6 @@
     "MODAL_BACKGROUND_UPLOAD" : "Télécharger",
     "MODAL_CLOSE" : "Fermer",
     "LIKE" : "Aime ça",
-    "TITLE_HOME" : "Gabbler - Gab Your Mind"
+    "TITLE_HOME" : "Gabbler - Gab Your Mind",
+    "INVALID_LOGIN" : "Login ou Mot de passe invalide."
 }
