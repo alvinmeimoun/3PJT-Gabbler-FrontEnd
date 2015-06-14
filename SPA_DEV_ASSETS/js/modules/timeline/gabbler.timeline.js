@@ -78,11 +78,12 @@ angular.module('gabbler.timeline' , [
     })
 
     // Controller gérant la partie profil de l'utilisateur
-    .controller('profileOverviewCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout',
-        function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout){
+    .controller('profileOverviewCtrl', ['$scope', '$cookieStore', '$location', 'AuthenticationService', 'TimelineServices', 'toastr', '$rootScope', '$timeout', '$window',
+        function($scope,$cookieStore,$location,AuthenticationService,TimelineServices,toastr, $rootScope, $timeout, $window){
             if(typeof($cookieStore.get("globals")) === "undefined") {
 
                 $location.path("/");
+                $window.reload();
             }
 
         var user = null;

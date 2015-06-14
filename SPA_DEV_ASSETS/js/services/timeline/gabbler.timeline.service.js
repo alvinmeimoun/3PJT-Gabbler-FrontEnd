@@ -13,8 +13,8 @@ angular.module('gabbler.timeline.service', [
 
 
 
-.factory('TimelineServices',  ['$http', '$cookieStore', '$rootScope', '$timeout', 'ServerLink', 'toastr', '$location', 'AuthenticationService',
-        function ( $http, $cookieStore,$rootScope, $timeout, ServerLink, toastr , $location ,AuthenticationService) {
+.factory('TimelineServices',  ['$http', '$cookieStore', '$rootScope', '$timeout', 'ServerLink', 'toastr', '$location', 'AuthenticationService', '$window',
+        function ( $http, $cookieStore,$rootScope, $timeout, ServerLink, toastr , $location ,AuthenticationService , $window) {
             var service = {};
             var token;
             var userID;
@@ -23,6 +23,7 @@ angular.module('gabbler.timeline.service', [
             if(typeof($cookieStore.get("globals")) === "undefined") {
 
                $location.path('/');
+               $window.reload();
             }
             else {
                 // On récupère l'utilisateur en ligne
