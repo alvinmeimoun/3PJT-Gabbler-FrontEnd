@@ -170,7 +170,15 @@ angular.module('gabbler.timeline.service', [
                             {
                                 if (likers.hasOwnProperty(j))
                                 {
-                                    if (likers[j].userID == userID)
+                                    if (likers[j].userID == userID && likers.length == 1)
+                                    {
+                                        formattedresponse[i].btnLike = {
+                                            state: states[1],
+                                            index: i
+                                        };
+                                    }
+                                    else
+                                    if (likers[j].userID == userID && likers.length > 1)
                                     {
                                         formattedresponse[i].btnLike = {
                                             state: states[1],
@@ -180,7 +188,7 @@ angular.module('gabbler.timeline.service', [
                                     else
                                     {
                                         formattedresponse[i].btnLike = {
-                                            state: states[1],
+                                            state: states[0],
                                             index: i
                                         };
                                     }
