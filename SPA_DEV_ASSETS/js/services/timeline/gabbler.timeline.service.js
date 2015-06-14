@@ -166,32 +166,44 @@ angular.module('gabbler.timeline.service', [
                         var likers = formattedresponse[i].likers;
                         if (likers.length !== 0 )
                         {
+                            for(var k in likers) {
+                                if (likers.hasOwnProperty(k)) {
+
+                                        formattedresponse[i].btnLike = {
+                                            state: states[0],
+                                            index: i
+                                        };
+                                }
+                            }
                             for(var j in likers)
                             {
                                 if (likers.hasOwnProperty(j))
                                 {
-                                    if (likers[j].userID == userID && likers.length == 1)
+                                    if (likers[j].userID == userID )
                                     {
                                         formattedresponse[i].btnLike = {
                                             state: states[1],
                                             index: i
                                         };
+                                       // continue;
+
                                     }
-                                    else
+                                    /*else
                                     if (likers[j].userID == userID && likers.length > 1)
                                     {
                                         formattedresponse[i].btnLike = {
                                             state: states[1],
                                             index: i
                                         };
-                                    }
-                                    else
+                                    }*/
+                                   /* else
                                     {
                                         formattedresponse[i].btnLike = {
                                             state: states[0],
                                             index: i
                                         };
-                                    }
+                                        continue;
+                                    }*/
                                 }
                             }
                         }

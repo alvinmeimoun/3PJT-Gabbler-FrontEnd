@@ -71,7 +71,6 @@ angular.module('gabbler.timeline.global' , [
         $scope.states = ['Like', 'Unlike'];
 
         TimelineServices.GetGabsTimelineGlobal(function(response) {
-            //$scope.gabs = response;
 
             $scope.gabs = response;
 
@@ -120,9 +119,9 @@ angular.module('gabbler.timeline.global' , [
                     if(status === 200 )
                     {
                         $scope.gabs[index].btnLike.state = $scope.states[1];
-                       /* TimelineServices.GetGabsTimelineGlobal(function(response) {
+                       TimelineServices.GetGabsTimelineGlobal(function(response) {
                             $scope.gabs = response;
-                        });*/
+                        });
                     }
                     else
                     {
@@ -135,12 +134,12 @@ angular.module('gabbler.timeline.global' , [
             {
                 TimelineServices.DislikeGab(gabId, function(response,status)
                 {
-                    if(status === 200 )
+                    if(status === 200)
                     {
                         $scope.gabs[index].btnLike.state = $scope.states[0];
-                       /* TimelineServices.GetGabsTimelineGlobal(function(response) {
+                       TimelineServices.GetGabsTimelineGlobal(function(response) {
                             $scope.gabs = response;
-                        });*/
+                        });
                     }
                     else
                     {
